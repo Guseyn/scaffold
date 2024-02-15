@@ -1,0 +1,425 @@
+:root {
+	--media-only-screen-max-width: 750px;
+	--body-background: linear-gradient(270deg, #ececec 0%, #f5f5f5 100%);;
+	--header-background: linear-gradient(270deg, #1e272e 0%, #343c42 100%);
+	--article-border-radius: 10px;
+	--header-border-radius: 4px;
+	--font-color-on-dark: #ffffff;
+	--font-family-for-reading: 'PT Serif', serif;
+	--font-family-for-interacting: Tahoma, sans-serif;
+}
+
+html {
+	font-size: 18px;
+}
+
+body {
+	width: 100%;
+	background: var(--body-background);
+}
+
+article {
+	width: var(--media-only-screen-max-width);
+	margin: 0 auto;
+	padding: 0.5rem;
+	border-bottom-left-radius: var(--article-border-radius);
+  border-bottom-right-radius: var(--article-border-radius);
+  border-bottom: 1px solid lightgray;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+}
+
+header {
+	background: var(--header-background);
+	padding: 1rem;
+	border-radius: var(--header-border-radius);
+	color: var(--font-color-on-dark);
+	font-family: var(--font-family-for-interacting);
+}
+
+section {
+	padding: 1rem 0.5rem;
+}
+
+footer {
+	padding: 1rem 0.5rem;
+}
+
+h1 {
+
+}
+
+h2 {
+
+}
+
+h3 {
+
+}
+
+h4 {
+
+}
+
+p {
+
+}
+
+a {
+
+}
+
+img {
+
+}
+
+ul {
+
+}
+
+ol {
+
+}
+
+li {
+
+}
+
+div {
+
+}
+
+span {
+
+}
+
+input[type="text"] {
+
+}
+
+input[type="password"] {
+
+}
+
+input[type="email"] {
+
+}
+
+input[type="number"] {
+
+}
+
+input[type="checkbox"] {
+
+}
+
+input[type="radio"] {
+
+}
+
+input[type="submit"] {
+
+}
+
+input[type="reset"] {
+
+}
+
+input[type="file"] {
+
+}
+
+input[type="date"] {
+
+}
+
+input[type="time"] {
+
+}
+
+input[type="datetime-local"] {
+
+}
+
+input[type="url"] {
+
+}
+
+input[type="tel"] {
+
+}
+
+button {
+	
+}
+
+form {
+
+}
+
+label {
+
+}
+
+textarea {
+
+}
+
+select {
+
+}
+
+option {
+
+}
+
+table {
+
+}
+
+tr {
+
+}
+
+td {
+
+}
+
+th {
+
+}
+
+thead {
+
+}
+
+tbody {
+
+}
+
+tfoot {
+
+}
+
+iframe {
+
+}
+
+audio {
+
+}
+
+video {
+
+}
+
+canvas {
+
+}
+
+@media only screen and (max-width: var(--media-only-screen-max-width)) {
+	html {
+		font-size: 18px;
+	}
+
+	body {
+
+	}
+
+	article {
+		width: 100%;
+	}
+
+	header {
+
+	}
+
+	section {
+
+	}
+
+	footer {
+
+	}
+
+	h1 {
+
+	}
+
+	h2 {
+
+	}
+
+	h3 {
+
+	}
+
+	h4 {
+
+	}
+
+	p {
+
+	}
+
+	a {
+
+	}
+
+	img {
+
+	}
+
+	ul {
+
+	}
+
+	ol {
+
+	}
+
+	li {
+
+	}
+
+	div {
+
+	}
+
+	span {
+
+	}
+
+	input[type="text"] {
+
+	}
+
+	input[type="password"] {
+
+	}
+
+	input[type="email"] {
+
+	}
+
+	input[type="number"] {
+
+	}
+
+	input[type="checkbox"] {
+
+	}
+
+	input[type="radio"] {
+
+	}
+
+	input[type="submit"] {
+
+	}
+
+	input[type="reset"] {
+
+	}
+
+	input[type="file"] {
+
+	}
+
+	input[type="date"] {
+
+	}
+
+	input[type="time"] {
+
+	}
+
+	input[type="datetime-local"] {
+
+	}
+
+	input[type="url"] {
+
+	}
+
+	input[type="tel"] {
+
+	}
+
+	button {
+
+	}
+
+	form {
+
+	}
+
+	label {
+
+	}
+
+	textarea {
+
+	}
+
+	select {
+
+	}
+
+	option {
+
+	}
+
+	table {
+
+	}
+
+	tr {
+
+	}
+
+	td {
+
+	}
+
+	th {
+
+	}
+
+	thead {
+
+	}
+
+	tbody {
+
+	}
+
+	tfoot {
+
+	}
+
+	iframe {
+
+	}
+
+	audio {
+
+	}
+
+	video {
+
+	}
+
+	canvas {
+
+	}
+
+	.for-reading {
+	  font-family: 'PT Serif', serif;
+	}
+
+	.for-interacting {
+		font-family: Tahoma, sans-serif;
+	}
+}
+

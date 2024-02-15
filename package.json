@@ -1,0 +1,22 @@
+{
+  "name": "scaffold",
+  "version": "1.0.0",
+  "description": "My HTML and CSS",
+  "main": "index.js",
+  "scripts": {
+    "server": "node local-server"
+  },
+  "author": "guseyn",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@cuties/async": "^1.0.1",
+    "@cuties/buffer": "^1.2.3",
+    "@cuties/cutie": "^1.7.5",
+    "@cuties/fs": "^1.2.4",
+    "@cuties/https": "^1.1.4",
+    "@cuties/json": "^1.1.1",
+    "@cuties/rest": "^1.2.16"
+  }
+}
