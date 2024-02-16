@@ -1,10 +1,14 @@
 :root {
-	--media-only-screen-max-width: 750px;
-	--body-background: linear-gradient(270deg, #ececec 0%, #f5f5f5 100%);;
+	--media-only-screen-max-width: 840px;
+	--body-background: #ececec;
+	--article-background: #ffffff;
 	--header-background: linear-gradient(270deg, #1e272e 0%, #343c42 100%);
 	--article-border-radius: 10px;
 	--header-border-radius: 4px;
+	--header-link-color: #ffffff;
+	--header-link-color-hovered: #ffffff90;
 	--font-color-on-dark: #ffffff;
+	--font-color-on-light: #111111;
 	--font-family-for-reading: 'PT Serif', serif;
 	--font-family-for-interacting: Tahoma, sans-serif;
 }
@@ -14,11 +18,12 @@ html {
 }
 
 body {
-	width: 100%;
 	background: var(--body-background);
+	margin-bottom: 2rem;
 }
 
 article {
+	background: var(--article-background);
 	width: var(--media-only-screen-max-width);
 	margin: 0 auto;
 	padding: 0.5rem;
@@ -35,38 +40,68 @@ header {
 	border-radius: var(--header-border-radius);
 	color: var(--font-color-on-dark);
 	font-family: var(--font-family-for-interacting);
+	text-align: center;
+}
+
+header a:has(img) {
+	display: block;
+	width: fit-content;
+	margin: 0 auto;
+	padding: 0.25rem;
+}
+
+header a:not(:has(img)) {
+  color: var(--header-link-color);
+  display: inline-block;
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+  font-size: 1.1rem;
+  text-decoration: none;
+}
+
+header a:not(:has(img)):hover {
+	color: var(--header-link-color-hovered);
 }
 
 section {
-	padding: 1rem 0.5rem;
+	padding: 0rem 0.5rem;
+	font-family: var(--font-family-for-reading);
 }
 
 footer {
-	padding: 1rem 0.5rem;
+	padding-top: 1rem;
+	font-size: 0.8rem;
+	text-align: center;
+	font-family: var(--font-family-for-interacting);
+}
+
+footer a {
+	color: var(--font-color-on-light);
 }
 
 h1 {
-
+	font-size: 2.4rem;
 }
 
 h2 {
-
+	font-size: 1.8rem;
 }
 
 h3 {
-
+	font-size: 1.2rem;
 }
 
 h4 {
-
+	font-size: 1.2rem;
 }
 
 p {
-
+	font-size: 1.2rem;
+	line-height: 1.7rem;
 }
 
 a {
-
+	color: var(--font-color-on-light);
 }
 
 img {
@@ -217,209 +252,13 @@ canvas {
 
 }
 
-@media only screen and (max-width: var(--media-only-screen-max-width)) {
+@media only screen and (max-width: 840px) {
 	html {
 		font-size: 18px;
 	}
 
-	body {
-
-	}
-
 	article {
 		width: 100%;
-	}
-
-	header {
-
-	}
-
-	section {
-
-	}
-
-	footer {
-
-	}
-
-	h1 {
-
-	}
-
-	h2 {
-
-	}
-
-	h3 {
-
-	}
-
-	h4 {
-
-	}
-
-	p {
-
-	}
-
-	a {
-
-	}
-
-	img {
-
-	}
-
-	ul {
-
-	}
-
-	ol {
-
-	}
-
-	li {
-
-	}
-
-	div {
-
-	}
-
-	span {
-
-	}
-
-	input[type="text"] {
-
-	}
-
-	input[type="password"] {
-
-	}
-
-	input[type="email"] {
-
-	}
-
-	input[type="number"] {
-
-	}
-
-	input[type="checkbox"] {
-
-	}
-
-	input[type="radio"] {
-
-	}
-
-	input[type="submit"] {
-
-	}
-
-	input[type="reset"] {
-
-	}
-
-	input[type="file"] {
-
-	}
-
-	input[type="date"] {
-
-	}
-
-	input[type="time"] {
-
-	}
-
-	input[type="datetime-local"] {
-
-	}
-
-	input[type="url"] {
-
-	}
-
-	input[type="tel"] {
-
-	}
-
-	button {
-
-	}
-
-	form {
-
-	}
-
-	label {
-
-	}
-
-	textarea {
-
-	}
-
-	select {
-
-	}
-
-	option {
-
-	}
-
-	table {
-
-	}
-
-	tr {
-
-	}
-
-	td {
-
-	}
-
-	th {
-
-	}
-
-	thead {
-
-	}
-
-	tbody {
-
-	}
-
-	tfoot {
-
-	}
-
-	iframe {
-
-	}
-
-	audio {
-
-	}
-
-	video {
-
-	}
-
-	canvas {
-
-	}
-
-	.for-reading {
-	  font-family: 'PT Serif', serif;
-	}
-
-	.for-interacting {
-		font-family: Tahoma, sans-serif;
 	}
 }
 
