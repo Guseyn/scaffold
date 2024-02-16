@@ -1,0 +1,91 @@
+/**
+ * GitHub Gist Theme
+ * Author : Louis Barranqueiro - https://github.com/LouisBarranqueiro
+ */
+
+.hljs {
+  display: block;
+  background: white;
+  padding: 0.5em;
+  border: 0px;
+  color: #333333;
+  overflow-x: auto;
+}
+
+.hljs-comment,
+.hljs-meta {
+  color: #969896;
+  border: 0px;
+}
+
+.hljs-string,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-strong,
+.hljs-emphasis,
+.hljs-quote {
+  color: #df5000;
+  border: 0px;
+  padding: 0px;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-type {
+  color: #a71d5d;
+  border: 0px;
+  padding: 0px;
+}
+
+.hljs-literal,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-attribute {
+  color: #0086b3;
+  border: 0px;
+  padding: 0px;
+}
+
+.hljs-section,
+.hljs-name {
+  color: #63a35c;
+  border: 0px;
+  padding: 0px;
+}
+
+.hljs-tag {
+  color: #333333;
+  border: 0px;
+  padding: 0px;
+}
+
+.hljs-title,
+.hljs-attr,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #795da3;
+  border: 0px;
+  padding: 0px;
+}
+
+.hljs-addition {
+  color: #55a532;
+  background-color: #eaffea;
+  border: 0px;
+  padding: 0px;
+}
+
+.hljs-deletion {
+  color: #bd2c00;
+  background-color: #ffecec;
+  border: 0px;
+  padding: 0px;
+}
+
+.hljs-link {
+  text-decoration: underline;
+  border: 0px;
+  padding: 0px;
+}

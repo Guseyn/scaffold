@@ -3,14 +3,14 @@
 	--body-background: #ececec;
 	--article-background: #ffffff;
 	--header-background: linear-gradient(270deg, #1e272e 0%, #343c42 100%);
-	--article-border-radius: 10px;
-	--header-border-radius: 4px;
 	--header-link-color: #ffffff;
 	--header-link-color-hovered: #ffffff90;
 	--font-color-on-dark: #ffffff;
 	--font-color-on-light: #111111;
 	--font-family-for-reading: 'PT Serif', serif;
 	--font-family-for-interacting: Tahoma, sans-serif;
+	--article-box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;;
+	--div-box-shadow: rgba(9, 30, 66, 0.45) 0px 1px 1px, rgba(9, 30, 66, 0.25) 0px 0px 1px 1px;
 }
 
 html {
@@ -24,20 +24,19 @@ body {
 
 article {
 	background: var(--article-background);
+	box-sizing: border-box;
 	width: var(--media-only-screen-max-width);
 	margin: 0 auto;
 	padding: 0.5rem;
-	border-bottom-left-radius: var(--article-border-radius);
-  border-bottom-right-radius: var(--article-border-radius);
-  border-bottom: 1px solid lightgray;
-  border-left: 1px solid lightgray;
-  border-right: 1px solid lightgray;
+	border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: var(--article-box-shadow);
 }
 
 header {
 	background: var(--header-background);
 	padding: 1rem;
-	border-radius: var(--header-border-radius);
+	border-radius: 4px;
 	color: var(--font-color-on-dark);
 	font-family: var(--font-family-for-interacting);
 	text-align: center;
@@ -121,7 +120,35 @@ li {
 }
 
 div {
+	position: relative;
+  overflow: auto;
+  scrollbar-width: none;
+  box-sizing: border-box;
+  box-shadow: var(--div-box-shadow);
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-family: var(--font-family-for-interacting);
+  width: 100%;
+  scrollbar-width: none;
+}
 
+div pre {
+	min-width: 620px;
+	margin-top: -24px;
+	margin-bottom: 0px;
+	white-space: pre-wrap;
+  background-color: #FEFEFE;
+  z-index: -1;
+  width: 100%;
+}
+
+div pre code {
+	padding: 0;
+}
+
+div::-webkit-scrollbar { 
+  display: none;  /* Hide scroll bar for Safari and Chrome */
 }
 
 span {
@@ -250,6 +277,29 @@ video {
 
 canvas {
 
+}
+
+.copy-icon {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 24px;
+  height: 24px;
+  opacity: 0.6;
+}
+
+.copy-icon:hover {
+  opacity: 1.0;
+  cursor: pointer;
+}
+
+span:has(img.copy-icon) {
+	display: inline-block;
+  position: sticky;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 24px;
 }
 
 @media only screen and (max-width: 840px) {

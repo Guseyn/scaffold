@@ -3,11 +3,13 @@
   <head>
     <title>Scaffold</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <!-- <link rel="shortcut icon" href="/image/favicon.ico"/> -->
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/scaffold.css">
+    <link rel="stylesheet" href="/css/highlights.css">
     <script type="text/javascript" src="/js/ehtml.bundle.min.js"></script>
+    <script type="text/javascript" src="/js/scaffold.js"></script>
   </head>
   <body>
   	<article>
@@ -19,7 +21,10 @@
   			<a href="https://guseyn.github.io/nn-math-web/">nn-math-web</a>
   		</header>
   		<section>
-  			<e-markdown data-src="/md/content.md"></e-markdown>
+  			<e-markdown
+  				data-src="/md/content.md"
+  				data-apply-code-highlighting="true"
+  			></e-markdown>
   		</section>
   		<footer>
   			<span>Created by <a href="https://guseyn.com/html/about.html">Guseyn</a></span>
