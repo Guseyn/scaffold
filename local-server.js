@@ -21,11 +21,11 @@ new Backend(
   '127.0.0.1',
   new RestApi(
     new CustomIndexEndpoint(
-      'index.html',
+      './html/index.html',
       new NotFoundEndpoint(new RegExp(/\/not-found/))
     ),
     new ServingFilesEndpoint(
-      new RegExp(/^\/(html|js|json|image|css|md)/),
+      new RegExp(/^\/(html|js|json|image|css|md|font)/),
       mapperForStatic,
       {},
       new NotFoundEndpoint(new RegExp(/\/not-found/))

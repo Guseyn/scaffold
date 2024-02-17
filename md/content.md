@@ -59,6 +59,118 @@ Some text above
 		<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
 	</span>
 ```js
-const a  = {}
+const a = {}
+const b = {}
 ```
 </div>
+
+## Some DIV with LaTeX
+
+<div>
+	<span>
+		<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
+	</span>
+```latex
+\displaystyle{
+	a = \sigma(\sum_{i=1}^{n}{x_i}{w_i} + b)
+}
+```
+</div>
+
+
+## Some IMG Below
+
+<img src="/image/portugal.png"/>
+
+## Some Lists Below
+
+Let's take a look at unordered list
+
+- Point 1
+	- Point 1,1
+	- Point 1,2
+	- Point 1,3
+- Point 2
+	- Point 2,1
+	- Point 2,2
+	- Point 2,3
+- Point 3
+	- Point 3,1
+	- Point 3,2
+	- Point 3,3
+- Point 4
+	- Point 4,1
+	- Point 4,2
+	- Point 4,3
+
+Let's take a look at ordered list
+
+1. Point 1
+	1.1. Point 1,1
+	1.2. Point 1,2
+	1.3. Point 1,3
+2. Point 2
+	2.1. Point 2,1
+	2.2. Point 2,2
+	2.3. Point 2,3
+3. Point 3
+	3.1. Point 3,1
+	3.2. Point 3,2
+	3.3. Point 3,3
+4. Point 4
+	4.1. Point 4,1
+	4.2. Point 4,2
+	4.3. Point 4,3
+
+
+## Inputs
+
+<input type="text" placeholder="Your Name"></input>
+<input type="password" placeholder="Your Password"></input>
+<input type="email" placeholder="Your Email"></input>
+<input type="number" placeholder="1"></input>
+
+## Checkboxes
+
+<div>
+	Choose Your Options
+	<label>
+		<input type="checkbox"/>
+		Option 1
+	</label>
+	<label>
+		<input type="checkbox"/>
+		Option 2
+	</label>
+	<label>
+		<input type="checkbox"/>
+		Option 3
+	</label>
+	<label>
+		<input type="checkbox"/>
+		Option 4
+	</label>
+</div>
+
+## Radiobuttons
+
+<div>
+	<legend>Choose Your Option:</legend>
+	<label>
+		<input type="radio" name="option"/>
+		Option 1
+	</label>
+	<label>
+		<input type="radio" name="option"/>
+		Option 2
+	</label>
+	<label>
+		<input type="radio" name="option"/>
+		Option 3
+	</label>
+	<label>
+		<input type="radio" name="option"/>
+		Option 4
+	</label>
+</div>
+

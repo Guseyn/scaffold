@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>Scaffold</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <!-- <link rel="shortcut icon" href="/image/favicon.ico"/> -->
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/highlights.css">
+    <link rel="stylesheet" href="/css/katex.min.css">
+    <link rel="stylesheet" href="/css/scaffold.css">
+
+    <script type="text/javascript" src="/js/ehtml.bundle.min.js"></script>
+    <script type="text/javascript" src="/js/scaffold.js"></script>
+  </head>
+  <body>
+    <template
+      is="e-wrapper"
+      data-src="/html/main-page-template.html"
+      data-where-to-place="section"
+      data-how-to-place="instead">
+      <section>
+        <e-markdown
+          data-src="/md/content.md"
+          data-apply-code-highlighting="true"
+          data-apply-latex="true"
+          data-actions-on-progress-start="
+            document.body.classList.toggle('progress-opacity')
+          "
+          data-actions-on-progress-end="
+            document.body.classList.toggle('progress-opacity')
+          "
+        ></e-markdown>
+      </section>
+    </template>
+  </body>
+</html>

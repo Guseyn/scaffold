@@ -1,5 +1,12 @@
 window.copyText = (copyIcon) => {
-  const text = copyIcon.parentElement.innerText
+  const textContainer = copyIcon.parentElement.parentElement
+  let text
+  const latexSpan = textContainer.querySelector('span[title]')
+  if (latexSpan) {
+    text = latexSpan.getAttribute('title')
+  } else {
+    text = textContainer.innerText
+  }
   const textarea = document.createElement('textarea')
   textarea.value = text
   textarea.setAttribute('readonly', '')
