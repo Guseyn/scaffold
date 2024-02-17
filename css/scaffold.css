@@ -14,6 +14,9 @@
 	--input-box-shadow: rgba(44, 58, 71, 0.65) 0px 1px 1px, rgba(44, 58, 71, 0.45) 0px 0px 1px 1px;
 	--input-box-shadow-focus: rgba(44, 58, 71, 0.65) 0px 2px 2px, rgba(44, 58, 71, 0.45) 0px 0px 2px 2px;
 	--checkbox-height: 25px;
+	--button-box-shadow: rgba(44, 58, 71, 0.65) 0px 1px 1px, rgba(44, 58, 71, 0.45) 0px 0px 1px 1px;
+	--button-box-shadow-hover: rgba(44, 58, 71, 0.65) 0px 3px 3px, rgba(44, 58, 71, 0.45) 0px 0px 3px 3px;
+	--button-box-shadow-active: rgba(44, 58, 71, 0.65) 0px 2px 2px, rgba(44, 58, 71, 0.45) 0px 0px 2px 2px;
 }
 
 html {
@@ -169,7 +172,12 @@ input::placeholder {
 input[type="text"],
 input[type="password"],
 input[type="email"],
-input[type="number"] {
+input[type="number"],
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="url"],
+input[type="tel"] {
 	display: block;
 	box-sizing: border-box;
 	width: 100%;
@@ -182,6 +190,13 @@ input[type="number"] {
 	border: 8px solid white;
   border-radius: 4px;
   box-shadow: var(--input-box-shadow);
+  accent-color: #2C3A47;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+	cursor: pointer;
 }
 
 input[type="text"]:focus,
@@ -196,16 +211,10 @@ input[type="number"] {
 	padding: 0;
 }
 
-input[type="checkbox"] {
-	transform: scale(2.0);
-	margin-right: 0.5rem;
-	accent-color: #2C3A47;
-	outline: none;
-}
-
+input[type="checkbox"],
 input[type="radio"] {
 	transform: scale(2.0);
-	margin-right: 0.5rem;
+	margin-right: 0.4rem;
 	accent-color: #2C3A47;
 	outline: none;
 }
@@ -215,44 +224,73 @@ label:has(input[type="radio"]) {
 	display: block;
 	padding: 0.5rem;
 	width: max-content;
-	margin-left: 1rem;
-}
-
-input[type="submit"] {
-
-}
-
-input[type="reset"] {
-
-}
-
-input[type="file"] {
-
-}
-
-input[type="date"] {
-
-}
-
-input[type="time"] {
-
-}
-
-input[type="datetime-local"] {
-
-}
-
-input[type="url"] {
-
-}
-
-input[type="tel"] {
-
+	margin-left: 0.5rem;
 }
 
 button {
-	
+	background: #323232;
+	color: #ffffff;
+	cursor: pointer;
+	display: block;
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 450px;
+	margin: 0 auto;
+	font-family: var(--font-family-for-interacting);
+	font-size: 1.5rem;
+	padding: 1.5rem;
+	outline: none;
+	border: 8px solid white;
+  border-radius: 16px;
+  box-shadow: var(--button-box-shadow);
 }
+
+button:hover {
+	background: #434343;
+	box-shadow: var(--button-box-shadow-hover);
+}
+
+button:active {
+	background: #212121;
+	box-shadow: var(--button-box-shadow-active);
+}
+
+button[class="persist"] {
+	background: #009F6B;
+}
+
+button[class="persist"]:hover {
+	background: #19A879;
+}
+
+button[class="persist"]:active {
+	background: #008F60;
+}
+
+button[class="delete"] {
+	background: #C40233;
+}
+
+button[class="delete"]:hover {
+	background: #C91B47;
+}
+
+button[class="delete"]:active {
+	background: #B0012D;
+}
+
+button[class="download"] {
+	background: #0087BD;
+}
+
+button[class="download"]:hover {
+	background: #0095D1;
+}
+
+button[class="download"]:active {
+	background: #0079A9;
+}
+
 
 form {
 

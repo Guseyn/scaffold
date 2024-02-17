@@ -129,11 +129,16 @@ Let's take a look at ordered list
 <input type="password" placeholder="Your Password"></input>
 <input type="email" placeholder="Your Email"></input>
 <input type="number" placeholder="1"></input>
+<input type="date" placeholder="1"></input>
+<input type="time" placeholder="1"></input>
+<input type="datetime-local" placeholder="1"></input>
+<input type="url" placeholder="1"></input>
+<input type="tel" placeholder="1"></input>
 
 ## Checkboxes
 
 <div>
-	Choose Your Options
+	Choose Your Options:
 	<label>
 		<input type="checkbox"/>
 		Option 1
@@ -173,4 +178,11 @@ Let's take a look at ordered list
 		Option 4
 	</label>
 </div>
+
+## Buttons
+
+<button>Button</button>
+<button class="persist">Button</button>
+<button class="delete">Button</button>
+<button class="download">Button</button>
 
