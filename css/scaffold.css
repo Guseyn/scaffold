@@ -177,7 +177,9 @@ input[type="date"],
 input[type="time"],
 input[type="datetime-local"],
 input[type="url"],
-input[type="tel"] {
+input[type="tel"],
+textarea,
+select {
 	display: block;
 	box-sizing: border-box;
 	width: 100%;
@@ -225,6 +227,17 @@ label:has(input[type="radio"]) {
 	padding: 0.5rem;
 	width: max-content;
 	margin-left: 0.5rem;
+}
+
+div:has(input[type="checkbox"]),
+div:has(input[type="radio"]),
+div:has(select) {
+	max-width: max-content;
+	margin: 0 auto;
+}
+
+legend {
+	margin-bottom: 0.5rem;
 }
 
 button {
@@ -296,48 +309,52 @@ form {
 
 }
 
-label {
-
-}
-
 textarea {
-
+	max-width: 650px;
+	min-height: 250px;
+	padding: 0.5rem;
+	font-size: 1.1rem;
 }
 
 select {
-
-}
-
-option {
-
+	padding: 0.5rem;
+	font-size: 1.1rem;
 }
 
 table {
-
+	font-family: var(--font-family-for-interacting);
+	border-collapse: separate;
+  margin: 0 auto;
+  width: 100%;
 }
 
-tr {
+tbody tr:nth-of-type(odd) {
+  background-color: #FFF5EE;
+}
 
+thead td:first-child {
+  border-top-left-radius: 10px;
+}
+
+thead td:last-child {
+  border-top-right-radius: 10px;
+}
+
+tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
 }
 
 td {
-
-}
-
-th {
-
+  border: 1px solid var(--font-color-on-light);
+  padding: 1.2rem;
 }
 
 thead {
-
-}
-
-tbody {
-
-}
-
-tfoot {
-
+	font-weight: bold;
 }
 
 iframe {

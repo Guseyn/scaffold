@@ -138,7 +138,7 @@ Let's take a look at ordered list
 ## Checkboxes
 
 <div>
-	Choose Your Options:
+	<legend>Choose Your Options:</legend>
 	<label>
 		<input type="checkbox"/>
 		Option 1
@@ -186,3 +186,52 @@ Let's take a look at ordered list
 <button class="delete">Button</button>
 <button class="download">Button</button>
 
+## Textarea
+
+<textarea></textarea>
+
+
+## Select
+
+<div>
+	<legend>Select you choice</legend>
+	<select>
+		<option>1</option>
+		<option>2</option>
+		<option>3</option>
+		<option>4</option>
+	</select>
+</div>
+
+## Tables
+
+<table>
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>Age</td>
+			<td>Height</td>
+			<td>Weight</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>John</td>
+			<td>23</td>
+			<td>175</td>
+			<td>80</td>
+		</tr>
+		<tr>
+			<td>Alice</td>
+			<td>23</td>
+			<td>175</td>
+			<td>80</td>
+		</tr>
+		<tr>
+			<td>JJ</td>
+			<td>23</td>
+			<td>175</td>
+			<td>80</td>
+		</tr>
+	</tbody>
+</table>
