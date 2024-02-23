@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/css/scaffold.css">
 
     <script type="text/javascript" src="/js/ehtml.bundle.min.js"></script>
+    <script type="text/javascript" src="/js/connect-worker-that-produces-unilang-output.js"></script>
     <script type="text/javascript" src="/js/scaffold.js"></script>
   </head>
   <body>
@@ -20,17 +21,22 @@
       data-where-to-place="section"
       data-how-to-place="instead">
       <section>
-        <e-markdown
-          data-src="/md/content.md"
-          data-apply-code-highlighting="true"
-          data-apply-latex="true"
-          data-actions-on-progress-start="
-            document.body.classList.toggle('progress-opacity')
-          "
-          data-actions-on-progress-end="
-            document.body.classList.toggle('progress-opacity')
-          "
-        ></e-markdown>
+        <template
+          is="unison-font-loader"
+          data-font-urls="/font/Bravura.otf,/font/NotoSans-Bold.ttf,/font/NotoSans-Regular.ttf,/font/GentiumPlus-Regular.ttf"
+        >
+          <e-markdown
+            data-src="/md/content.md"
+            data-apply-code-highlighting="true"
+            data-apply-latex="true"
+            data-actions-on-progress-start="
+              document.body.classList.toggle('progress-opacity')
+            "
+            data-actions-on-progress-end="
+              document.body.classList.toggle('progress-opacity')
+            "
+          ></e-markdown>
+        </template>
       </section>
     </template>
   </body>
