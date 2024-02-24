@@ -17,6 +17,8 @@
 	--button-box-shadow: rgba(44, 58, 71, 0.65) 0px 1px 1px, rgba(44, 58, 71, 0.45) 0px 0px 1px 1px;
 	--button-box-shadow-hover: rgba(44, 58, 71, 0.65) 0px 3px 3px, rgba(44, 58, 71, 0.45) 0px 0px 3px 3px;
 	--button-box-shadow-active: rgba(44, 58, 71, 0.65) 0px 2px 2px, rgba(44, 58, 71, 0.45) 0px 0px 2px 2px;
+	--toolbar-background-color: #F6F8FA;
+  --tolbar-border-color: #BCBCBC;
 }
 
 html {
@@ -134,7 +136,7 @@ li {
 
 div {
 	position: relative;
-  overflow: auto;
+  overflow-x: auto;
   scrollbar-width: none;
   box-sizing: border-box;
   box-shadow: var(--div-box-shadow);
@@ -157,6 +159,22 @@ div pre {
   background-color: #fefefe;
   z-index: -1;
   width: max-content;
+}
+
+div svg {
+	display: block;
+	margin-top: -1.2em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div:has(svg) {
+	padding: 0;
+}
+
+div:has(svg) img.copy-icon {
+	top: 0.6em;
+	right: 0.6em;
 }
 
 span {
@@ -204,7 +222,12 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="email"]:focus,
-input[type="number"]:focus {
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="datetime-local"]:focus,
+input[type="url"]:focus,
+input[type="tel"]:focus {
 	box-shadow: var(--input-box-shadow-focus);
 }
 
@@ -226,13 +249,6 @@ label:has(input[type="radio"]) {
 	display: block;
 	padding: 0.5rem;
 	width: max-content;
-	margin-left: 0.5rem;
-}
-
-div:has(input[type="checkbox"]),
-div:has(input[type="radio"]),
-div:has(select) {
-	max-width: max-content;
 	margin: 0 auto;
 }
 
@@ -408,6 +424,13 @@ span:has(img.copy-icon) {
 .katex-display span[class="base"] {
 	padding-left: 1em;
 	padding-right: 1em;
+}
+
+midi-player {
+	display: block;
+	width: 100%;
+	box-sizing: content-box;
+	border-top: 1px solid var(--tolbar-border-color);
 }
 
 @media only screen and (max-width: 840px) {

@@ -37,13 +37,13 @@ Some paragrath after H4
 
 This is some text with a <a href="https://guseyn.com">link</a>.
 
-## Some DIV Below
+## Some DIV
 
 <div>
 	Well adjusted content here
 </div>
 
-## Some DIV Below with Text Above
+## Some DIV with Text Above
 
 Some text above
 
@@ -52,7 +52,7 @@ Some text above
 </div>
 
 
-## Some DIV Below with Code
+## Some DIV with Code
 
 <div>
 	<span>
@@ -65,7 +65,7 @@ const b = {}
 </div>
 
 ## Some DIV with LaTeX
-
+    
 <div>
 	<span>
 		<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
@@ -78,11 +78,29 @@ const b = {}
 </div>
 
 
-## Some IMG Below
+## Some DIV with Music
+
+<div>
+	<span>
+		<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
+	</span>
+	<template is="unison-svg-midi" id="1">
+		page line width is 268
+		background color is white
+		stretch units by 1.6 times
+		page top padding is 7
+		page bottom padding is 7
+		measure ends with double bold barline
+		treble clef
+		a b c d e
+	</template>
+</div>
+
+## Some IMG
 
 <img src="/image/portugal.png"/>
 
-## Some Lists Below
+## Some Lists
 
 Let's take a look at unordered list
 

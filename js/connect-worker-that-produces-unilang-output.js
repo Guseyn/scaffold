@@ -7,7 +7,7 @@ const actionOnResponseHandlers = {
     window.dispatchEvent(new CustomEvent('loadingFontsForRenderingSVGsFinished', { detail: true }))
   },
   unilangOutput: (output) => {
-    window.dispatchEvent(new CustomEvent('unilangOutputRetrievedFromWorker', { detail: output }))
+    window.dispatchEvent(new CustomEvent(`unilangOutputRetrievedFromWorker-${output.id}`, { detail: output }))
   }
 }
 
@@ -22,6 +22,6 @@ window.loadFontsForRenderingSVGsViaWorker = (fonts) => {
 }
 
 // id is for cases when we have multiple generation of unilang output on one page, so we can somehow distingush them
-window.unilangOutputViaWorker = (unilangInputTexts = [''], applyHighlighting = false, generateMIDI = false, id = null) => {
-  workerThatProducesUnilangOutputs.postMessage({ action: 'unilangOutput', actionOnResponse: 'unilangOutput', input: unilangInputTexts, applyHighlighting, generateMIDI, id })
+window.unilangOutputViaWorker = (unilangInputTexts = [''], applyHighlighting = false, generateSVG, generateMIDI = false, id = null) => {
+  workerThatProducesUnilangOutputs.postMessage({ action: 'unilangOutput', actionOnResponse: 'unilangOutput', input: unilangInputTexts, applyHighlighting, generateSVG, generateMIDI, id })
 }
