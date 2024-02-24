@@ -140,6 +140,20 @@ window.__ehtmlCustomElements__['unison-font-loader-template'] = (node) => {
   }
 }
 
+window.createMidiPlayer = (id, midiForAllPages) => {
+  const midiPlayer = document.createElement('midi-player')
+  midiPlayer.setAttribute('id', `midi-player-${id}`)
+  midiPlayer.setAttribute('sound-font', 'https://cdn.unisonofficial.com/magenta-soundfonts/SGM')
+  midiPlayer.setAttribute('visualizer', '#myVisualizer')
+  midiPlayer.setAttribute(
+    'src',
+    midiForAllPages.dataSrc
+  )
+  midiPlayer.timeStampsMappedWithRefsOn = midiForAllPages.timeStampsMappedWithRefsOn
+  midiPlayer.refsOnMappedWithTimeStamps = midiForAllPages.refsOnMappedWithTimeStamps
+  return midiPlayer
+}
+
 window.__ehtmlCustomElements__['unison-svg-midi-template'] = (node) => {
   if (node.nodeName.toLowerCase() !== 'template') {
     throw new Error('node is not template')
@@ -151,33 +165,77 @@ window.__ehtmlCustomElements__['unison-svg-midi-template'] = (node) => {
   const contentNode = document.importNode(node.content, true)
   const unilangText = contentNode.textContent
   const unilangOutputRetrievedEvent = (event) => {
-    console.log(event.detail)
     const svgString = event.detail.unilangOutputsForEachPage[0].svg
-    const customStyles = event.detail.unilangOutputsForEachPage[0].customStyles
-    const midiForAllPages = event.detail.midiForAllPages
-    const midiDataSrc = midiForAllPages.dataSrc
     const domParser = new DOMParser()
     const svg = domParser.parseFromString(svgString, 'image/svg+xml').documentElement
     svg.setAttribute('title', unilangText)
-    node.parentNode.style.backgroundColor = customStyles.backgroundColor || '#FDF5E6'
-    const midiPlayer = document.createElement('midi-player')
-    midiPlayer.setAttribute('id', `midi-player-${id}`)
-    midiPlayer.setAttribute('sound-font', 'https://cdn.unisonofficial.com/magenta-soundfonts/SGM')
-    midiPlayer.setAttribute('visualizer', '#myVisualizer')
-    midiPlayer.setAttribute(
-      'src',
-      midiForAllPages.dataSrc
-    )
-    midiPlayer.timeStampsMappedWithRefsOn = midiForAllPages.timeStampsMappedWithRefsOn
-    midiPlayer.refsOnMappedWithTimeStamps = midiForAllPages.refsOnMappedWithTimeStamps
     node.parentNode.replaceChild(
       svg, node
     )
+
+    const midiForAllPages = event.detail.midiForAllPages
+    const midiDataSrc = midiForAllPages.dataSrc
+    const midiPlayer = window.createMidiPlayer(id, midiForAllPages)
     svg.parentNode.appendChild(midiPlayer)
+
+    const customStyles = event.detail.unilangOutputsForEachPage[0].customStyles
+    svg.parentNode.style.backgroundColor = customStyles.backgroundColor || '#FDF5E6'
+
     window.attachHighliterToMidiPlayer(midiPlayer, svg.parentNode, customStyles)
+
     window.removeEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
   }
   window.addEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
   window.unilangOutputViaWorker([ unilangText ], false, true, true, id)
+}
+
+window.__ehtmlCustomElements__['unison-svg-template'] = (node) => {
+  if (node.nodeName.toLowerCase() !== 'template') {
+    throw new Error('node is not template')
+  }
+  if (!node.hasAttribute('id')) {
+    throw new Error('<template is="unison-svg-midi"> must have id attribute')
+  }
+  const id = node.getAttribute('id')
+  const contentNode = document.importNode(node.content, true)
+  const unilangText = contentNode.textContent
+  const unilangOutputRetrievedEvent = (event) => {
+    const svgString = event.detail.unilangOutputsForEachPage[0].svg
+    const domParser = new DOMParser()
+    const svg = domParser.parseFromString(svgString, 'image/svg+xml').documentElement
+    svg.setAttribute('title', unilangText)
+    node.parentNode.replaceChild(
+      svg, node
+    )
+
+    const customStyles = event.detail.unilangOutputsForEachPage[0].customStyles
+    svg.parentNode.style.backgroundColor = customStyles.backgroundColor || '#FDF5E6'
+
+    window.removeEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
+  }
+  window.addEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
+  window.unilangOutputViaWorker([ unilangText ], false, true, false, id)
+}
+
+window.__ehtmlCustomElements__['unison-midi-template'] = (node) => {
+  if (node.nodeName.toLowerCase() !== 'template') {
+    throw new Error('node is not template')
+  }
+  if (!node.hasAttribute('id')) {
+    throw new Error('<template is="unison-svg-midi"> must have id attribute')
+  }
+  const id = node.getAttribute('id')
+  const contentNode = document.importNode(node.content, true)
+  const unilangText = contentNode.textContent
+  const unilangOutputRetrievedEvent = (event) => {
+    const midiForAllPages = event.detail.midiForAllPages
+    const midiPlayer = window.createMidiPlayer(id, midiForAllPages)
+    node.parentNode.replaceChild(
+      midiPlayer, node
+    )
+    window.removeEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
+  }
+  window.addEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
+  window.unilangOutputViaWorker([ unilangText ], false, false, true, id)
 }
 

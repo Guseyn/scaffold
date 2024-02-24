@@ -148,6 +148,10 @@ div {
   scrollbar-width: none;
 }
 
+div + div {
+	margin-top: 1em;
+}
+
 div::-webkit-scrollbar { 
   display: none;  /* Hide scroll bar for Safari and Chrome */
 }
@@ -168,7 +172,8 @@ div svg {
 	margin-right: auto;
 }
 
-div:has(svg) {
+div:has(svg),
+div:has(midi-player) {
 	padding: 0;
 }
 
@@ -227,7 +232,9 @@ input[type="date"]:focus,
 input[type="time"]:focus,
 input[type="datetime-local"]:focus,
 input[type="url"]:focus,
-input[type="tel"]:focus {
+input[type="tel"]:focus,
+textarea:focus,
+select:focus {
 	box-shadow: var(--input-box-shadow-focus);
 }
 
@@ -272,16 +279,19 @@ button {
 	border: 8px solid white;
   border-radius: 16px;
   box-shadow: var(--button-box-shadow);
+  transition: 1.2s;
 }
 
 button:hover {
 	background: #434343;
 	box-shadow: var(--button-box-shadow-hover);
+	transition: 0.5s;
 }
 
 button:active {
 	background: #212121;
 	box-shadow: var(--button-box-shadow-active);
+	transition: 0s;
 }
 
 button[class="persist"] {
@@ -430,6 +440,9 @@ midi-player {
 	display: block;
 	width: 100%;
 	box-sizing: content-box;
+}
+
+svg + midi-player {
 	border-top: 1px solid var(--tolbar-border-color);
 }
 

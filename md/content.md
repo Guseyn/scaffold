@@ -64,7 +64,7 @@ const b = {}
 ```
 </div>
 
-## Some DIV with LaTeX
+## Some DIV with Math
     
 <div>
 	<span>
@@ -93,6 +93,55 @@ const b = {}
 		measure ends with double bold barline
 		treble clef
 		a b c d e
+	</template>
+</div>
+
+<div>
+	<span>
+		<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
+	</span>
+	<template is="unison-svg-midi" id="2">
+		page line width is 268
+		background color is white
+		stretch units by 1.6 times
+		page top padding is 7
+		page bottom padding is 7
+		measure ends with double bold barline
+		treble clef
+		g g g g g g
+	</template>
+</div>
+
+## Some DIV with just SVG
+
+<div>
+	<span>
+		<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
+	</span>
+	<template is="unison-svg" id="3">
+		page line width is 268
+		background color is white
+		stretch units by 1.6 times
+		page top padding is 7
+		page bottom padding is 7
+		measure ends with double bold barline
+		treble clef
+		g g g g g g
+	</template>
+</div>
+
+## Some DIV with just MIDI
+
+<div>
+	<template is="unison-midi" id="4">
+		page line width is 268
+		background color is white
+		stretch units by 1.6 times
+		page top padding is 7
+		page bottom padding is 7
+		measure ends with double bold barline
+		treble clef
+		g g g g g g
 	</template>
 </div>
 
