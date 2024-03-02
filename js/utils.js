@@ -1,8 +1,12 @@
 window.copyText = (copyIcon) => {
-  const textContainer = copyIcon.parentElement.parentElement
+  const textContainer = copyIcon.parentElement.initialParentElement
+    ? copyIcon.parentElement.initialParentElement.shadowRoot
+    : copyIcon.parentElement.parentElement
+  console.log(textContainer)
   let text
   const latexSpan = textContainer.querySelector('span[title]')
   const svg = textContainer.querySelector('svg')
+  const textareaInTextContainer = textContainer.querySelector('textarea')
   if (latexSpan) {
     text = latexSpan.getAttribute('title')
   } else if (svg) {
@@ -11,6 +15,8 @@ window.copyText = (copyIcon) => {
       .split('\n')
       .map(line => line.trim())
       .join('\n')
+  } else if (textareaInTextContainer) {
+    text = textareaInTextContainer.value
   } else {
     text = textContainer.innerText
   }

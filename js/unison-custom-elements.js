@@ -119,7 +119,7 @@ window.__ehtmlCustomElements__['unison-text-highlights-template'] = (node) => {
     throw new Error('node is not template')
   }
   if (!node.hasAttribute('id')) {
-    throw new Error('<template is="unison-text-highlights-template"> must have id attribute')
+    throw new Error('<template is="unison-text-highlights"> must have id attribute')
   }
   const id = node.getAttribute('id')
   const contentNode = document.importNode(node.content, true)
@@ -129,7 +129,6 @@ window.__ehtmlCustomElements__['unison-text-highlights-template'] = (node) => {
     .map(line => line.trim())
     .join('\n')
   const unilangOutputRetrievedEvent = (event) => {
-    console.log(event.detail)
     const htmlHighlightsAsString = event.detail.unilangOutputsForEachPage[0].highlightsHtmlBuffer.join('')
     const preWithHighlights = document.createElement('pre')
     preWithHighlights.innerHTML = htmlHighlightsAsString
@@ -144,6 +143,79 @@ window.__ehtmlCustomElements__['unison-text-highlights-template'] = (node) => {
   }
   window.addEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
   window.unilangOutputViaWorker([ unilangText ], true, false, false, id)
+}
+
+window.__ehtmlCustomElements__['unison-textarea-svg-midi-template'] = (node) => {
+  if (node.nodeName.toLowerCase() !== 'template') {
+    throw new Error('node is not template')
+  }
+  if (!node.hasAttribute('id')) {
+    throw new Error('<template is="unison-textarea-svg-midi"> must have id attribute')
+  }
+  const spanWithActions = node.parentElement.querySelector('span')
+  if (!spanWithActions) {
+    throw new Error('<template is="unison-textarea-svg-midi"> must include span with action icons')
+  }
+  const id = node.getAttribute('id')
+  const editIcon = spanWithActions.querySelector('.edit-icon')
+  const renderIcon = spanWithActions.querySelector('.render-icon')
+  const contentNode = document.importNode(node.content, true)
+  const unilangText = contentNode.textContent
+    .trim()
+    .split('\n')
+    .map(line => line.trim())
+    .join('\n')
+  const textarea = document.createElement('textarea')
+  textarea.value = unilangText
+  node.parentNode.replaceChild(
+    textarea, node
+  )
+  window.initializeUnisonTextarea(
+    textarea, renderIcon, editIcon
+  )
+  textarea.initialParentElement.style.height = '270px'
+  textarea.initialParentElement.style.backgroundColor = 'transparent'
+  textarea.initialParentElement.shadowRoot.appendChild(spanWithActions)
+  spanWithActions.initialParentElement = textarea.initialParentElement
+  const additionalStyleContent = `
+    span:has(img.copy-icon) {
+      display: inline-block;
+      position: sticky;
+      width: 100%;
+      height: 24px;
+      z-index: 10;
+    }
+    .copy-icon,
+    .edit-icon,
+    .render-icon {
+      position: absolute;
+      top: -0.6rem;
+      right: -0.6rem;
+      width: 24px;
+      height: 24px;
+      opacity: 0.6;
+      user-select: none;
+    }
+    .edit-icon {
+      right: 1.2rem;
+    }
+    .render-icon {
+      right: 1.2rem;
+    }
+    .copy-icon:hover,
+    .edit-icon:hover,
+    .render-icon:hover {
+      opacity: 1.0;
+      cursor: pointer;
+    }
+    div:has(pre) span:has(img) {
+      cursor: text;
+    }
+  `
+  const styleElement = textarea.initialParentElement.shadowRoot.querySelector('style')
+  styleElement.textContent += additionalStyleContent
+
+  
 }
 
 ///////////////////////////// FUNCTIONS /////////////////////////////
@@ -250,7 +322,7 @@ window.attachHighliterToMidiPlayer = (midiPlayer, svgParent, customStyles) => {
     for (const refIdIndex in splittedRefIds) {
       const refId = splittedRefIds[refIdIndex]
       if (midiPlayer.refsOnMappedWithTimeStamps[theOnlyPageIndex][refId] !== undefined) {
-        midiProgressBar.value = midiPlayer.refsOnMappedWithTimeStamps[theOnlyPageIndex][refId]
+        midiProgressBar.value = midiPlayer.refsOnMappedWithTimeStamps[theOnlyPageIndex][refId] - PRECISION
         midiProgressBar.dispatchEvent(new CustomEvent('change'))
         break
       }

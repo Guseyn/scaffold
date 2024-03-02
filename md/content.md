@@ -163,6 +163,26 @@ const b = {}
 	</template>
 </div>
 
+## Some DIV with Unison Text Editor
+
+<div>
+	<span>
+		<img alt="copy" class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
+		<img alt="edit" class="edit-icon" src="/image/edit.svg" style="display: none" >
+		<img alt="preview" class="render-icon" src="/image/render.svg">
+	</span>
+	<template is="unison-textarea-svg-midi" id="6">
+		page line width is 268
+		background color is white
+		stretch units by 1.6 times
+		page top padding is 7
+		page bottom padding is 7
+		measure ends with double bold barline
+		treble clef
+		g g g g g g
+	</template>
+</div>
+
 ## Some IMG
 
 <img src="/image/portugal.png"/>
