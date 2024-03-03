@@ -174,6 +174,8 @@ window.__ehtmlCustomElements__['unison-textarea-svg-midi-template'] = (node) => 
     textarea, renderIcon, editIcon
   )
 
+  textarea.setAttribute('placeholder', 'Type here...')
+
   const divUnderneathTextarea = textarea.initialParentElement.shadowRoot.querySelector('.div-underneath-unitextarea')
   const lineNumbersColumn = textarea.initialParentElement.shadowRoot.querySelector('.line-numbers-column')
   const autocompleteListView = textarea.initialParentElement.shadowRoot.querySelector('.autocomplete-list-view')
@@ -251,13 +253,12 @@ window.__ehtmlCustomElements__['unison-textarea-svg-midi-template'] = (node) => 
   styleElement.textContent += additionalStyleContent
 
   renderIcon.addEventListener('click', () => {
+    if (textarea.isRenderedWithLatestUnilangInputText) {
+      hideTextareaAndShowPreview(textarea, divUnderneathTextarea, lineNumbersColumn, autocompleteListView, copyIcon, editIcon, renderIcon)
+      return
+    }
     const unilangText = textarea.value
     const unilangOutputRetrievedEvent = (event) => {
-      const svgString = event.detail.unilangOutputsForEachPage[0].svg
-      const domParser = new DOMParser()
-      const svg = domParser.parseFromString(svgString, 'image/svg+xml').documentElement
-      svg.setAttribute('title', unilangText)
-
       const svgBefore = textarea.initialParentElement.shadowRoot.querySelector('svg')
       const midiPlayerBefore = textarea.initialParentElement.shadowRoot.querySelector('midi-player')
 
@@ -268,22 +269,12 @@ window.__ehtmlCustomElements__['unison-textarea-svg-midi-template'] = (node) => 
         textarea.initialParentElement.shadowRoot.removeChild(midiPlayerBefore)
       }
 
+      const svgString = event.detail.unilangOutputsForEachPage[0].svg
+      const domParser = new DOMParser()
+      const svg = domParser.parseFromString(svgString, 'image/svg+xml').documentElement
+      svg.setAttribute('title', unilangText)
+
       textarea.initialParentElement.shadowRoot.appendChild(svg)
-      textarea.style.display = 'none'
-      divUnderneathTextarea.style.display = 'none'
-      lineNumbersColumn.style.display = 'none'
-      autocompleteListView.style.display = 'none'
-      textarea.initialParentElement.style.padding = '0px'
-      textarea.initialParentElement.style.height = ''
-      textarea.initialParentElement.style.overflow = 'auto'
-      copyIcon.style.top = '0.6rem'
-      copyIcon.style.right = '0.6rem'
-      editIcon.style.top = '0.6rem'
-      editIcon.style.right = '2.4rem'
-      renderIcon.style.top = '0.6rem'
-      renderIcon.style.right = '2.4rem'
-      renderIcon.style.display = 'none'
-      editIcon.style.display = 'inline-block'
 
       const midiForAllPages = event.detail.midiForAllPages
       const midiDataSrc = midiForAllPages.dataSrc
@@ -295,36 +286,27 @@ window.__ehtmlCustomElements__['unison-textarea-svg-midi-template'] = (node) => 
 
       window.attachHighliterToMidiPlayer(midiPlayer, svg.parentNode, customStyles)
 
+      hideTextareaAndShowPreview(textarea, divUnderneathTextarea, lineNumbersColumn, autocompleteListView, copyIcon, editIcon, renderIcon)
+
+      textarea.initialParentElement.style.opacity = '1.0'
+
+      refreshDivUnderneathTextareaWithNewHtml(
+        divUnderneathTextarea,
+        event.detail.unilangOutputsForEachPage[0].highlightsHtmlBuffer.join('')
+      )
+
+      textarea.isRenderedWithLatestUnilangInputText = true
+      textarea.isModified = false
+
       window.removeEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
     }
     window.addEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
-    window.unilangOutputViaWorker([ unilangText ], false, true, true, id)
+    window.unilangOutputViaWorker([ unilangText ], true, true, true, id)
+    textarea.initialParentElement.style.opacity = '0.5'
   })
 
   editIcon.addEventListener('click', () => {
-    textarea.style.display = 'block'
-    divUnderneathTextarea.style.display = 'block'
-    lineNumbersColumn.style.display = 'block'
-    autocompleteListView.style.display = 'block'
-    textarea.initialParentElement.style.padding = textarea.initialParentElement.initialPadding
-    textarea.initialParentElement.style.height = textarea.initialParentElement.initialHeight
-    textarea.initialParentElement.style.overflow = 'auto'
-    textarea.initialParentElement.style.backgroundColor = '#ffffff'
-    copyIcon.style.top = '-0.6rem'
-    copyIcon.style.right = '-0.6rem'
-    editIcon.style.top = '-0.6rem'
-    editIcon.style.right = '1.2rem'
-    renderIcon.style.top = '-0.6rem'
-    renderIcon.style.right = '1.2rem'
-    renderIcon.style.display = 'inline-block'
-    editIcon.style.display = 'none'
-
-    const svgBefore = textarea.initialParentElement.shadowRoot.querySelector('svg')
-    const midiPlayerBefore = textarea.initialParentElement.shadowRoot.querySelector('midi-player')
-
-    svgBefore.style.display = 'none'
-    midiPlayerBefore.style.display = 'none'
-
+    hidePreviewAndShowTextarea(textarea, divUnderneathTextarea, lineNumbersColumn, autocompleteListView, copyIcon, editIcon, renderIcon)
   })
 }
 
@@ -452,4 +434,61 @@ window.createMidiPlayer = (id, midiForAllPages) => {
   midiPlayer.timeStampsMappedWithRefsOn = midiForAllPages.timeStampsMappedWithRefsOn
   midiPlayer.refsOnMappedWithTimeStamps = midiForAllPages.refsOnMappedWithTimeStamps
   return midiPlayer
+}
+
+function hideTextareaAndShowPreview (textarea, divUnderneathTextarea, lineNumbersColumn, autocompleteListView, copyIcon, editIcon, renderIcon) {
+  textarea.style.display = 'none'
+  divUnderneathTextarea.style.display = 'none'
+  lineNumbersColumn.style.display = 'none'
+  autocompleteListView.style.display = 'none'
+  textarea.initialParentElement.style.padding = '0px'
+  textarea.initialParentElement.style.height = ''
+  textarea.initialParentElement.style.overflow = 'auto'
+  copyIcon.style.top = '0.6rem'
+  copyIcon.style.right = '0.6rem'
+  editIcon.style.top = '0.6rem'
+  editIcon.style.right = '2.4rem'
+  renderIcon.style.top = '0.6rem'
+  renderIcon.style.right = '2.4rem'
+  renderIcon.style.display = 'none'
+  editIcon.style.display = 'inline-block'
+
+  const svg = textarea.initialParentElement.shadowRoot.querySelector('svg')
+  const midiPlayer = textarea.initialParentElement.shadowRoot.querySelector('midi-player')
+
+  svg.style.display = 'block'
+  midiPlayer.style.display = 'block'
+}
+
+function hidePreviewAndShowTextarea (textarea, divUnderneathTextarea, lineNumbersColumn, autocompleteListView, copyIcon, editIcon, renderIcon) {
+  textarea.style.display = 'block'
+  divUnderneathTextarea.style.display = 'block'
+  lineNumbersColumn.style.display = 'block'
+  autocompleteListView.style.display = 'block'
+  textarea.initialParentElement.style.padding = textarea.initialParentElement.initialPadding
+  textarea.initialParentElement.style.height = textarea.initialParentElement.initialHeight
+  textarea.initialParentElement.style.overflow = 'visible'
+  textarea.initialParentElement.style.backgroundColor = '#ffffff'
+  copyIcon.style.top = '-0.6rem'
+  copyIcon.style.right = '-0.6rem'
+  editIcon.style.top = '-0.6rem'
+  editIcon.style.right = '1.2rem'
+  renderIcon.style.top = '-0.6rem'
+  renderIcon.style.right = '1.2rem'
+  renderIcon.style.display = 'inline-block'
+  editIcon.style.display = 'none'
+
+  const svg = textarea.initialParentElement.shadowRoot.querySelector('svg')
+  const midiPlayer = textarea.initialParentElement.shadowRoot.querySelector('midi-player')
+
+  svg.style.display = 'none'
+  midiPlayer.style.display = 'none'
+}
+
+function refreshDivUnderneathTextareaWithNewHtml (divUnderneathTextarea, html) {
+  const oldTextContainer = divUnderneathTextarea.textContainer
+  const newTextContainer = divUnderneathTextarea.textContainer.cloneNode(false)
+  newTextContainer.innerHTML = html
+  oldTextContainer.parentNode.replaceChild(newTextContainer, oldTextContainer)
+  divUnderneathTextarea.textContainer = newTextContainer
 }

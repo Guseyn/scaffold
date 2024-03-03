@@ -179,7 +179,7 @@ const b = {}
 		page bottom padding is 7
 		measure ends with double bold barline
 		treble clef
-		g g g g g g
+		c d e f g a
 	</template>
 </div>
 
