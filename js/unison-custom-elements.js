@@ -49,7 +49,6 @@ window.__ehtmlCustomElements__['unison-svg-midi-template'] = (node) => {
     )
 
     const midiForAllPages = event.detail.midiForAllPages
-    const midiDataSrc = midiForAllPages.dataSrc
     const midiPlayer = window.createMidiPlayer(id, midiForAllPages)
     svg.parentNode.appendChild(midiPlayer)
 
@@ -157,6 +156,7 @@ window.__ehtmlCustomElements__['unison-textarea-svg-midi-template'] = (node) => 
     throw new Error('<template is="unison-textarea-svg-midi"> must include span with action icons')
   }
   const id = node.getAttribute('id')
+  const copyIcon = spanWithActions.querySelector('.copy-icon')
   const editIcon = spanWithActions.querySelector('.edit-icon')
   const renderIcon = spanWithActions.querySelector('.render-icon')
   const contentNode = document.importNode(node.content, true)
@@ -173,10 +173,23 @@ window.__ehtmlCustomElements__['unison-textarea-svg-midi-template'] = (node) => 
   window.initializeUnisonTextarea(
     textarea, renderIcon, editIcon
   )
+
+  const divUnderneathTextarea = textarea.initialParentElement.shadowRoot.querySelector('.div-underneath-unitextarea')
+  const lineNumbersColumn = textarea.initialParentElement.shadowRoot.querySelector('.line-numbers-column')
+  const autocompleteListView = textarea.initialParentElement.shadowRoot.querySelector('.autocomplete-list-view')
+
   textarea.initialParentElement.style.height = '270px'
   textarea.initialParentElement.style.backgroundColor = 'transparent'
+  textarea.initialParentElement.style.overflow = 'visible'
   textarea.initialParentElement.shadowRoot.appendChild(spanWithActions)
   spanWithActions.initialParentElement = textarea.initialParentElement
+
+  const computedStylesForTextareaParent = window.getComputedStyle(textarea.initialParentElement)
+  const textareaParentInitialPadding = computedStylesForTextareaParent.getPropertyValue('padding')
+  const textareaParentInitialHeight = computedStylesForTextareaParent.getPropertyValue('height')
+  textarea.initialParentElement.initialPadding = textareaParentInitialPadding
+  textarea.initialParentElement.initialHeight = textareaParentInitialHeight
+
   const additionalStyleContent = `
     span:has(img.copy-icon) {
       display: inline-block;
@@ -184,6 +197,9 @@ window.__ehtmlCustomElements__['unison-textarea-svg-midi-template'] = (node) => 
       width: 100%;
       height: 24px;
       z-index: 10;
+      left: 0;
+      right: 0;
+      top: 0;
     }
     .copy-icon,
     .edit-icon,
@@ -196,9 +212,7 @@ window.__ehtmlCustomElements__['unison-textarea-svg-midi-template'] = (node) => 
       opacity: 0.6;
       user-select: none;
     }
-    .edit-icon {
-      right: 1.2rem;
-    }
+    .edit-icon,
     .render-icon {
       right: 1.2rem;
     }
@@ -211,11 +225,107 @@ window.__ehtmlCustomElements__['unison-textarea-svg-midi-template'] = (node) => 
     div:has(pre) span:has(img) {
       cursor: text;
     }
+
+
+    midi-player {
+      display: block;
+      width: 100%;
+      box-sizing: content-box;
+      position: sticky;
+      left: 0;
+      right: 0;
+    }
+
+    svg + midi-player {
+      border-top: 1px solid var(--tolbar-border-color);
+    }
+
+    svg {
+      display: block;
+      margin-top: -1.2em;
+      margin-left: auto;
+      margin-right: auto;
+    }
   `
   const styleElement = textarea.initialParentElement.shadowRoot.querySelector('style')
   styleElement.textContent += additionalStyleContent
 
-  
+  renderIcon.addEventListener('click', () => {
+    const unilangText = textarea.value
+    const unilangOutputRetrievedEvent = (event) => {
+      const svgString = event.detail.unilangOutputsForEachPage[0].svg
+      const domParser = new DOMParser()
+      const svg = domParser.parseFromString(svgString, 'image/svg+xml').documentElement
+      svg.setAttribute('title', unilangText)
+
+      const svgBefore = textarea.initialParentElement.shadowRoot.querySelector('svg')
+      const midiPlayerBefore = textarea.initialParentElement.shadowRoot.querySelector('midi-player')
+
+      if (svgBefore) {
+        textarea.initialParentElement.shadowRoot.removeChild(svgBefore)
+      }
+      if (midiPlayerBefore) {
+        textarea.initialParentElement.shadowRoot.removeChild(midiPlayerBefore)
+      }
+
+      textarea.initialParentElement.shadowRoot.appendChild(svg)
+      textarea.style.display = 'none'
+      divUnderneathTextarea.style.display = 'none'
+      lineNumbersColumn.style.display = 'none'
+      autocompleteListView.style.display = 'none'
+      textarea.initialParentElement.style.padding = '0px'
+      textarea.initialParentElement.style.height = ''
+      textarea.initialParentElement.style.overflow = 'auto'
+      copyIcon.style.top = '0.6rem'
+      copyIcon.style.right = '0.6rem'
+      editIcon.style.top = '0.6rem'
+      editIcon.style.right = '2.4rem'
+      renderIcon.style.top = '0.6rem'
+      renderIcon.style.right = '2.4rem'
+      renderIcon.style.display = 'none'
+      editIcon.style.display = 'inline-block'
+
+      const midiForAllPages = event.detail.midiForAllPages
+      const midiDataSrc = midiForAllPages.dataSrc
+      const midiPlayer = window.createMidiPlayer(id, midiForAllPages)
+      textarea.initialParentElement.shadowRoot.appendChild(midiPlayer)
+
+      const customStyles = event.detail.unilangOutputsForEachPage[0].customStyles
+      textarea.initialParentElement.style.backgroundColor = customStyles.backgroundColor || '#FDF5E6'
+
+      window.attachHighliterToMidiPlayer(midiPlayer, svg.parentNode, customStyles)
+
+      window.removeEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
+    }
+    window.addEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
+    window.unilangOutputViaWorker([ unilangText ], false, true, true, id)
+  })
+
+  editIcon.addEventListener('click', () => {
+    textarea.style.display = 'block'
+    divUnderneathTextarea.style.display = 'block'
+    lineNumbersColumn.style.display = 'block'
+    autocompleteListView.style.display = 'block'
+    textarea.initialParentElement.style.padding = textarea.initialParentElement.initialPadding
+    textarea.initialParentElement.style.height = textarea.initialParentElement.initialHeight
+    textarea.initialParentElement.style.overflow = 'auto'
+    textarea.initialParentElement.style.backgroundColor = '#ffffff'
+    copyIcon.style.top = '-0.6rem'
+    copyIcon.style.right = '-0.6rem'
+    editIcon.style.top = '-0.6rem'
+    editIcon.style.right = '1.2rem'
+    renderIcon.style.top = '-0.6rem'
+    renderIcon.style.right = '1.2rem'
+    renderIcon.style.display = 'inline-block'
+    editIcon.style.display = 'none'
+
+    const svgBefore = textarea.initialParentElement.shadowRoot.querySelector('svg')
+    const midiPlayerBefore = textarea.initialParentElement.shadowRoot.querySelector('midi-player')
+
+    svgBefore.style.display = 'none'
+    midiPlayerBefore.style.display = 'none'
+
+  })
 }
 
 ///////////////////////////// FUNCTIONS /////////////////////////////

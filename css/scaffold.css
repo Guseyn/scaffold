@@ -163,8 +163,8 @@ div::-webkit-scrollbar {
 }
 
 div span:has(img) + pre {
-  margin-top: -24px;
-  margin-bottom: 0em;
+  margin-top: -1.2rem;
+  margin-bottom: 0rem;
   box-sizing: border-box;
   background-color: #fefefe;
   z-index: -1;
@@ -435,6 +435,9 @@ span:has(img.copy-icon) {
   position: sticky;
   width: 100%;
   height: 24px;
+  left: 0;
+  right: 0;
+  top: 0;
 }
 
 .katex-display {
@@ -451,6 +454,9 @@ midi-player {
   display: block;
   width: 100%;
   box-sizing: content-box;
+  position: sticky;
+  left: 0;
+  right: 0;
 }
 
 svg + midi-player {

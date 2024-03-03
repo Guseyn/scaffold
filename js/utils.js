@@ -2,7 +2,6 @@ window.copyText = (copyIcon) => {
   const textContainer = copyIcon.parentElement.initialParentElement
     ? copyIcon.parentElement.initialParentElement.shadowRoot
     : copyIcon.parentElement.parentElement
-  console.log(textContainer)
   let text
   const latexSpan = textContainer.querySelector('span[title]')
   const svg = textContainer.querySelector('svg')
