@@ -193,6 +193,12 @@ div:has(svg) img.copy-icon {
   right: 0.6em;
 }
 
+div:has(svg) label {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+}
+
 span {
 
 }
@@ -263,12 +269,32 @@ input[type="radio"] {
   cursor: pointer;
 }
 
+input[type="checkbox"][data-correct="true"],
+input[type="radio"][data-correct="true"] {
+  accent-color: #009F6B;
+}
+
+input[type="checkbox"][data-correct="false"],
+input[type="radio"][data-correct="false"] {
+  accent-color: #C40233;
+}
+
 label:has(input[type="checkbox"]),
 label:has(input[type="radio"]) {
   display: block;
   padding: 0.5rem;
   width: max-content;
   margin: 0 auto;
+}
+
+label:has(input[type="checkbox"][data-correct="true"]),
+label:has(input[type="radio"][data-correct="true"]) {
+  color: #009F6B;
+}
+
+label:has(input[type="checkbox"][data-correct="false"]),
+label:has(input[type="radio"][data-correct="false"]) {
+  color: #C40233;
 }
 
 legend {
@@ -459,7 +485,8 @@ midi-player {
   right: 0;
 }
 
-svg + midi-player {
+svg + midi-player,
+label + midi-player {
   border-top: 1px solid var(--tolbar-border-color);
 }
 

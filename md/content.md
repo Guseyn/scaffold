@@ -183,6 +183,133 @@ const b = {}
 	</template>
 </div>
 
+## Some DIV with Music with Checkbox
+
+<div>
+	<span>
+		<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
+	</span>
+	<label>
+		<input type="checkbox"/>
+		Option 1
+	</label>
+	<template is="unison-svg-midi" id="7">
+		page line width is 268
+		background color is white
+		stretch units by 1.6 times
+		page top padding is 7
+		page bottom padding is 7
+		measure ends with double bold barline
+		treble clef
+		a b c d e
+	</template>
+</div>
+
+## Some DIV with Music with Radio
+
+<div>
+	<span>
+		<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
+	</span>
+	<label>
+		<input type="radio"/>
+		Option 1
+	</label>
+	<template is="unison-svg-midi" id="7">
+		page line width is 268
+		background color is white
+		stretch units by 1.6 times
+		page top padding is 7
+		page bottom padding is 7
+		measure ends with double bold barline
+		treble clef
+		a b c d e
+	</template>
+</div>
+
+## Some DIV with just MIDI with Checkbox
+
+<div>
+	<label>
+		<input type="checkbox"/>
+		Option 1
+	</label>
+	<template is="unison-midi" id="4">
+		page line width is 268
+		background color is white
+		stretch units by 1.6 times
+		page top padding is 7
+		page bottom padding is 7
+		measure ends with double bold barline
+		treble clef
+		g g g g g g
+	</template>
+</div>
+
+## Some DIV with just SVG with Checkbox
+
+<div>
+	<span>
+		<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
+	</span>
+	<label>
+		<input type="checkbox"/>
+		Option 1
+	</label>
+	<template is="unison-svg" id="3">
+		page line width is 268
+		background color is white
+		stretch units by 1.6 times
+		page top padding is 7
+		page bottom padding is 7
+		measure ends with double bold barline
+		treble clef
+		g g g g g g
+	</template>
+</div>
+
+## Some DIV with just SVG with Correct and Wrong Checkboxes
+
+<div>
+	<span>
+		<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
+	</span>
+	<label>
+		<input type="checkbox" data-correct="true" checked/>
+		Option 1
+	</label>
+	<template is="unison-svg" id="3">
+		page line width is 268
+		background color is white
+		stretch units by 1.6 times
+		page top padding is 7
+		page bottom padding is 7
+		measure ends with double bold barline
+		treble clef
+		g g g g g g
+	</template>
+</div>
+
+<div>
+	<span>
+		<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
+	</span>
+	<label>
+		<input type="checkbox" data-correct="false" checked/>
+		Option 2
+	</label>
+	<template is="unison-svg" id="3">
+		page line width is 268
+		background color is white
+		stretch units by 1.6 times
+		page top padding is 7
+		page bottom padding is 7
+		measure ends with double bold barline
+		treble clef
+		g g g g g g
+	</template>
+</div>
+
 ## Some IMG
 
 <img src="/image/portugal.png"/>
