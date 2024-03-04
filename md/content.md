@@ -274,8 +274,8 @@ const b = {}
 	<span>
 		<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
 	</span>
-	<label>
-		<input type="checkbox" data-correct="true" checked/>
+	<label data-correct="true">
+		<img src="/image/correct.svg">
 		Option 1
 	</label>
 	<template is="unison-svg" id="3">
@@ -294,8 +294,8 @@ const b = {}
 	<span>
 		<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
 	</span>
-	<label>
-		<input type="checkbox" data-correct="false" checked/>
+	<label data-correct="false">
+		<img src="/image/wrong.svg">
 		Option 2
 	</label>
 	<template is="unison-svg" id="3">

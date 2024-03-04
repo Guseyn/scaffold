@@ -269,16 +269,6 @@ input[type="radio"] {
   cursor: pointer;
 }
 
-input[type="checkbox"][data-correct="true"],
-input[type="radio"][data-correct="true"] {
-  accent-color: #009F6B;
-}
-
-input[type="checkbox"][data-correct="false"],
-input[type="radio"][data-correct="false"] {
-  accent-color: #C40233;
-}
-
 label:has(input[type="checkbox"]),
 label:has(input[type="radio"]) {
   display: block;
@@ -287,14 +277,21 @@ label:has(input[type="radio"]) {
   margin: 0 auto;
 }
 
-label:has(input[type="checkbox"][data-correct="true"]),
-label:has(input[type="radio"][data-correct="true"]) {
+label[data-correct="true"] {
   color: #009F6B;
 }
 
-label:has(input[type="checkbox"][data-correct="false"]),
-label:has(input[type="radio"][data-correct="false"]) {
+label[data-correct="false"] {
   color: #C40233;
+}
+
+label img {
+  display: inline-block;
+  width: 2.0rem;
+  vertical-align: middle;
+}
+
+label:has(img) {
 }
 
 legend {
