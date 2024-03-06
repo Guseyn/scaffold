@@ -140,7 +140,7 @@ li {
   line-height: 1.6rem;
 }
 
-div {
+div:not(.group) {
   position: relative;
   overflow-x: auto;
   scrollbar-width: none;
@@ -154,7 +154,7 @@ div {
   scrollbar-width: none;
 }
 
-div + div {
+div:not(.group) + div:not(.group) {
   margin-top: 1em;
 }
 
@@ -162,7 +162,7 @@ div::-webkit-scrollbar {
   display: none;  /* Hide scroll bar for Safari and Chrome */
 }
 
-div span:has(img) + pre {
+div:not(.group) span:has(img) + pre {
   margin-top: -1.2rem;
   margin-bottom: 0rem;
   box-sizing: border-box;
@@ -172,31 +172,36 @@ div span:has(img) + pre {
   cursor: text;
 }
 
-div:has(pre) span:has(img) {
+div:not(.group):has(pre) span:has(img) {
   cursor: text;
 }
 
-div svg {
+div:not(.group) svg {
   display: block;
   margin-top: -1.2em;
   margin-left: auto;
   margin-right: auto;
 }
 
-div:has(svg),
-div:has(midi-player) {
+div:not(.group):has(svg),
+div:not(.group):has(midi-player) {
   padding: 0;
 }
 
-div:has(svg) img.copy-icon {
+div:not(.group):has(svg) img.copy-icon {
   top: 0.6em;
   right: 0.6em;
 }
 
-div:has(svg) label {
+div:not(.group):has(svg) label {
   position: absolute;
   top: 0.6rem;
   left: 0.6rem;
+}
+
+div:not(.group):has(table) {
+  padding: 0;
+  box-shadow: none;
 }
 
 span {
@@ -577,6 +582,34 @@ label + midi-player {
 }
 
 /*/////////////////////////////END OF HIGHLIHGHT CLASSES ///////////////////////////////*/
+
+.question-title {
+  text-align: center;
+  font-family: var(--font-family-for-interacting);
+  font-size: 1.6rem;
+  margin-top: 4rem;
+}
+
+.question-numbers-panel {
+  font-family: var(--font-family-for-interacting);
+  font-weight: bold;
+}
+
+.neutral-question-number {
+  color: #111111;
+}
+
+.neutral-question-next-number {
+  color: #111111;
+}
+
+.correct-question-number {
+  color: #009F6B;
+}
+
+.wrong-question-number {
+  color: #C40233;
+}
 
 @media only screen and (max-width: 840px) {
   html {
