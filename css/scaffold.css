@@ -275,11 +275,24 @@ input[type="number"] {
 
 input[type="checkbox"],
 input[type="radio"] {
-  transform: scale(2.0);
-  margin-right: 0.4rem;
   accent-color: #2C3A47;
   outline: none;
   cursor: pointer;
+}
+
+label input[type="checkbox"],
+label input[type="radio"],
+label img {
+  width: 26px;
+  height: 26px;
+  vertical-align: middle;
+  margin-right: 0.4rem;
+  margin-bottom: 0.2rem;
+}
+
+label img {
+  width: 36px;
+  height: 36px;
 }
 
 div:not(.group):has(label:not(.block)),
@@ -289,13 +302,15 @@ div:not(.group):has(label:not(.block)) {
 }
 
 label:has(input[type="checkbox"]),
-label:has(input[type="radio"]) {
+label:has(input[type="radio"]),
+label:has(img) {
   padding: 1rem;
   margin: 0 auto;
 }
 
 label.block:has(input[type="checkbox"]),
-label.block:has(input[type="radio"]) {
+label.block:has(input[type="radio"]),
+label.block:has(img) {
   display: block;
   width: max-content;
 }
@@ -387,7 +402,6 @@ button.download:hover {
 button.download:active {
   background: #0079A9;
 }
-
 
 form {
 
@@ -610,6 +624,8 @@ label + midi-player {
 
 .question-numbers-panel {
   font-weight: bold;
+  cursor: default;
+  user-select: none;
 }
 
 .question-numbers-panel span {

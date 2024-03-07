@@ -189,7 +189,7 @@ const b = {}
 	<span>
 		<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
 	</span>
-	<label>
+	<label class="block">
 		<input type="checkbox"/>
 		Option 1
 	</label>
@@ -211,7 +211,7 @@ const b = {}
 	<span>
 		<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
 	</span>
-	<label>
+	<label class="block">
 		<input type="radio"/>
 		Option 1
 	</label>
@@ -230,7 +230,7 @@ const b = {}
 ## Some DIV with just MIDI with Checkbox
 
 <div>
-	<label>
+	<label class="block">
 		<input type="checkbox"/>
 		Option 1
 	</label>
@@ -252,7 +252,7 @@ const b = {}
 	<span>
 		<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
 	</span>
-	<label>
+	<label class="block">
 		<input type="checkbox"/>
 		Option 1
 	</label>
@@ -274,7 +274,7 @@ const b = {}
 	<span>
 		<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
 	</span>
-	<label data-correct="true">
+	<label data-correct="true" class="block">
 		<img src="/image/correct.svg">
 		Option 1
 	</label>
@@ -294,7 +294,7 @@ const b = {}
 	<span>
 		<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
 	</span>
-	<label data-correct="false">
+	<label data-correct="false" class="block">
 		<img src="/image/wrong.svg">
 		Option 2
 	</label>
@@ -474,7 +474,7 @@ Let's take a look at ordered list
 
 <template is="questionnaire">
 	<template is="question" data-right-answer="1">
-		<p class="question-title">1. Which Clef Do You See</p>
+		<p class="question-title">Which Clef Do You See</p>
 		<div>
 			<span>
 				<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
@@ -505,12 +505,12 @@ Let's take a look at ordered list
 		</div>
 	</template>
 	<template is="question" data-right-answer="1,2,3">
-		<p class="question-title">2. Which Notes Do You See</p>
+		<p class="question-title">Which Notes Do You See</p>
 		<div>
 			<span>
 				<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
 			</span>
-			<template is="unison-svg" id="q1">
+			<template is="unison-svg" id="q2">
 				page line width is 164
 				background color is white
 				stretch units by 1.6 times
@@ -553,12 +553,12 @@ Let's take a look at ordered list
 		</div>
 	</template>
 	<template is="question" data-right-answer="1">
-		<p class="question-title">3. Which Key Signature Do You See</p>
+		<p class="question-title">Which Key Signature Do You See</p>
 		<div>
 			<span>
 				<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
 			</span>
-			<template is="unison-svg" id="q1">
+			<template is="unison-svg" id="q3">
 				page line width is 164
 				background color is white
 				stretch units by 1.6 times
@@ -570,12 +570,69 @@ Let's take a look at ordered list
 			</template>
 		</div>
 		<div>
-			<select>
-				<option value="1">D Minor</option>
-				<option value="2">C Major</option>
-				<option value="3">A Minor</option>
-				<option value="4">G Major</option>
-			</select>
+			<label>
+				<input type="radio" name="q1" value="1"/>
+				D Minor
+			</label>
+			<label>
+				<input type="radio" name="q1" value="2"/>
+				C Major
+			</label>
+			<label>
+				<input type="radio" name="q1" value="3"/>
+				A Minor
+			</label>
+			<label>
+				<input type="radio" name="q1" value="3"/>
+				G Major
+			</label>
+		</div>
+	</template>
+	<template is="question" data-right-answer="#real-answer-q4">
+		<p class="question-title">Write Down What You Hear</p>
+		<div>
+			<template is="unison-midi" id="q4">
+				page line width is 164
+				background color is white
+				stretch units by 1.6 times
+				page top padding is 7
+				page bottom padding is 7
+				measure ends with double bold barline
+				treble clef
+				c d e f g a b
+			</template>
+		</div>
+		<div>
+			<span>
+				<img alt="copy" class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
+				<img alt="edit" class="edit-icon" src="/image/edit.svg" style="display: none" >
+				<img alt="preview" class="render-icon" src="/image/render.svg">
+			</span>
+			<template is="unison-textarea-svg-midi" id="q4">
+				page line width is 164
+				background color is white
+				stretch units by 1.6 times
+				page top padding is 7
+				page bottom padding is 7
+				measure ends with double bold barline
+				treble clef
+				c d e f g a b
+			</template>
+		</div>
+		<div id="real-answer-q4" style="display: none;">
+			<span>
+				<img alt="copy" class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
+			</span>
+			<template is="unison-svg" id="qr4">
+				page line width is 268
+				background color is white
+				stretch units by 1.6 times
+				page top padding is 7
+				page bottom padding is 7
+				measure ends with double bold barline
+				treble clef
+				c d e f g a b
+			</template>
 		</div>
 	</template>
 </template>

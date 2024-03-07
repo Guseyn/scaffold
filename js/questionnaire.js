@@ -65,15 +65,109 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
   const questionGroupDiv = document.createElement('div')
   questionGroupDiv.classList.add('group')
 
+  const firstRightAnswer = firstQuestionTemplateNode.getAttribute('data-right-answer')
   const firstQuestionContentNode = document.importNode(firstQuestionTemplateNode.content, true)
+  questionGroupDiv.setAttribute('data-right-answer', firstRightAnswer)
   questionGroupDiv.appendChild(firstQuestionContentNode)
 
-  firstQuestionTemplateNode.parentNode.replaceChild(
-    questionGroupDiv, firstQuestionTemplateNode
+  firstQuestionTemplateNode.parentNode.insertBefore(
+    questionGroupDiv, checkAnswerButton
   )
 
   checkAnswerButton.addEventListener('click', () => {
-    
+    const rightAnswer = questionGroupDiv.getAttribute('data-right-answer')
+    const checkboxAnswers = Array.from(questionGroupDiv.querySelectorAll('input[type="checkbox"]'))
+    const radioAnswers = Array.from(questionGroupDiv.querySelectorAll('input[type="radio"]'))
+    const selectAnswer = questionGroupDiv.querySelector('select')
+    const textareaAnswer = questionGroupDiv.querySelector('textarea')
+    const questionHasCheckboxAnswers = checkboxAnswers.length > 0
+    const questionHasRadioAnswers = radioAnswers.length > 0
+    const questionHasSelectAnswer = selectAnswer !== null
+    const questionHasTextareaAnswer = textareaAnswer !== null
+    let userAnswerIsCorrect = false
+    if (questionHasCheckboxAnswers) {
+      let userAnswer = []
+      const rightAnswerParts = rightAnswer.split(',')
+      for (let checkboxIndex = 0; checkboxIndex < checkboxAnswers.length; checkboxIndex++) {
+        if (checkboxAnswers[checkboxIndex].checked) {
+          userAnswer.push(checkboxAnswers[checkboxIndex].value)
+          if (rightAnswerParts.indexOf(checkboxAnswers[checkboxIndex].value) !== -1) {
+            const correctImgCheckmark = document.createElement('img')
+            correctImgCheckmark.setAttribute('src', '/image/correct.svg')
+            checkboxAnswers[checkboxIndex].parentNode.setAttribute('data-correct', 'true')
+            checkboxAnswers[checkboxIndex].parentNode.replaceChild(
+              correctImgCheckmark, checkboxAnswers[checkboxIndex]
+            )
+          } else {
+            const wrongImgCheckmark = document.createElement('img')
+            wrongImgCheckmark.setAttribute('src', '/image/wrong.svg')
+            checkboxAnswers[checkboxIndex].parentNode.setAttribute('data-correct', 'false')
+            checkboxAnswers[checkboxIndex].parentNode.replaceChild(
+              wrongImgCheckmark, checkboxAnswers[checkboxIndex]
+            )
+          }
+        } else if (rightAnswerParts.indexOf(checkboxAnswers[checkboxIndex].value) !== -1) {
+          const correctImgCheckmark = document.createElement('img')
+          correctImgCheckmark.setAttribute('src', '/image/correct.svg')
+          checkboxAnswers[checkboxIndex].parentNode.setAttribute('data-correct', 'true')
+          checkboxAnswers[checkboxIndex].parentNode.replaceChild(
+            correctImgCheckmark, checkboxAnswers[checkboxIndex]
+          )
+        }
+      }
+      userAnswerIsCorrect = userAnswer.join(',') === rightAnswer
+    } else if (questionHasRadioAnswers) {
+      for (let radioIndex = 0; radioIndex < radioAnswers.length; radioIndex++) {
+        if (radioAnswers[radioIndex].checked) {
+          if (rightAnswer === radioAnswers[radioIndex].value) {
+            const correctImgCheckmark = document.createElement('img')
+            correctImgCheckmark.setAttribute('src', '/image/correct.svg')
+            radioAnswers[radioIndex].parentNode.setAttribute('data-correct', 'true')
+            radioAnswers[radioIndex].parentNode.replaceChild(
+              correctImgCheckmark, radioAnswers[radioIndex]
+            )
+            userAnswerIsCorrect = true
+          } else {
+            const wrongImgCheckmark = document.createElement('img')
+            wrongImgCheckmark.setAttribute('src', '/image/wrong.svg')
+            radioAnswers[radioIndex].parentNode.setAttribute('data-correct', 'false')
+            radioAnswers[radioIndex].parentNode.replaceChild(
+              wrongImgCheckmark, radioAnswers[radioIndex]
+            )
+            userAnswerIsCorrect = false
+          }
+        } else if (rightAnswer === radioAnswers[radioIndex].value) {
+          const correctImgCheckmark = document.createElement('img')
+          correctImgCheckmark.setAttribute('src', '/image/correct.svg')
+          radioAnswers[radioIndex].parentNode.setAttribute('data-correct', 'true')
+          radioAnswers[radioIndex].parentNode.replaceChild(
+            correctImgCheckmark, radioAnswers[radioIndex]
+          )
+          userAnswerIsCorrect = false
+        }
+      }
+    } else if (questionHasTextareaAnswer) {
+      
+    }
+    questionNumberSpans[currentQuestionIndex].classList.add(
+      userAnswerIsCorrect
+        ? 'correct-question-number'
+        : 'wrong-question-number'
+    )
+    checkAnswerButton.style.display = 'none'
+    if ((currentQuestionIndex + 1) === numberOfQuestions) {
+      startOverButton.style.display = 'block'
+    } else {
+      nextQuestionButton.style.display = 'block'
+    }
+  })
+
+  nextQuestionButton.addEventListener('click', () => {
+
+  })
+
+  startOverButton.addEventListener('click', () => {
+
   })
 }
 
