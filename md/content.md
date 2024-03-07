@@ -490,18 +490,92 @@ Let's take a look at ordered list
 			</template>
 		</div>
 		<div>
-			<label>
+			<label class="block">
 				<input type="radio" name="q1" value="1"/>
 				Treble
 			</label>
-			<label>
+			<label class="block">
 				<input type="radio" name="q1" value="2"/>
 				Bass
 			</label>
-			<label>
+			<label class="block">
 				<input type="radio" name="q1" value="3"/>
 				Alto
 			</label>
+		</div>
+	</template>
+	<template is="question" data-right-answer="1,2,3">
+		<p class="question-title">2. Which Notes Do You See</p>
+		<div>
+			<span>
+				<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
+			</span>
+			<template is="unison-svg" id="q1">
+				page line width is 164
+				background color is white
+				stretch units by 1.6 times
+				page top padding is 7
+				page bottom padding is 7
+				measure ends with double bold barline
+				treble clef
+				c d e
+			</template>
+		</div>
+		<div>
+			<label>
+				<input type="checkbox" name="q2" value="1"/>
+				c
+			</label>
+			<label>
+				<input type="checkbox" name="q2" value="2"/>
+				d
+			</label>
+			<label>
+				<input type="checkbox" name="q2" value="3"/>
+				e
+			</label>
+			<label>
+				<input type="checkbox" name="q2" value="4"/>
+				f
+			</label>
+			<label>
+				<input type="checkbox" name="q2" value="5"/>
+				g
+			</label>
+			<label>
+				<input type="checkbox" name="q2" value="5"/>
+				a
+			</label>
+			<label>
+				<input type="checkbox" name="q2" value="5"/>
+				b
+			</label>
+		</div>
+	</template>
+	<template is="question" data-right-answer="1">
+		<p class="question-title">3. Which Key Signature Do You See</p>
+		<div>
+			<span>
+				<img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
+			</span>
+			<template is="unison-svg" id="q1">
+				page line width is 164
+				background color is white
+				stretch units by 1.6 times
+				page top padding is 7
+				page bottom padding is 7
+				measure ends with double bold barline
+				treble clef
+				key signature is d minor
+			</template>
+		</div>
+		<div>
+			<select>
+				<option value="1">D Minor</option>
+				<option value="2">C Major</option>
+				<option value="3">A Minor</option>
+				<option value="4">G Major</option>
+			</select>
 		</div>
 	</template>
 </template>

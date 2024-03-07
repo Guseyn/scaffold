@@ -176,7 +176,7 @@ div:not(.group):has(pre) span:has(img) {
   cursor: text;
 }
 
-div:not(.group) svg {
+div:not(.group):has(span) svg {
   display: block;
   margin-top: -1.2em;
   margin-left: auto;
@@ -202,6 +202,14 @@ div:not(.group):has(svg) label {
 div:not(.group):has(table) {
   padding: 0;
   box-shadow: none;
+}
+
+div.group br {
+  display: none;
+}
+
+button.questionnaire-button {
+  margin-top: 3rem;
 }
 
 span {
@@ -274,12 +282,22 @@ input[type="radio"] {
   cursor: pointer;
 }
 
+div:not(.group):has(label:not(.block)),
+div:not(.group):has(label:not(.block)) {
+  text-align: center;
+  line-height: 3rem;
+}
+
 label:has(input[type="checkbox"]),
 label:has(input[type="radio"]) {
-  display: block;
-  padding: 0.5rem;
-  width: max-content;
+  padding: 1rem;
   margin: 0 auto;
+}
+
+label.block:has(input[type="checkbox"]),
+label.block:has(input[type="radio"]) {
+  display: block;
+  width: max-content;
 }
 
 label[data-correct="true"] {
@@ -334,39 +352,39 @@ button:active {
   transition: 0s;
 }
 
-button[class="persist"] {
+button.persist {
   background: #009F6B;
 }
 
-button[class="persist"]:hover {
+button.persist:hover {
   background: #19A879;
 }
 
-button[class="persist"]:active {
+button.persist:active {
   background: #008F60;
 }
 
-button[class="delete"] {
+button.delete {
   background: #C40233;
 }
 
-button[class="delete"]:hover {
+button.delete:hover {
   background: #C91B47;
 }
 
-button[class="delete"]:active {
+button.delete:active {
   background: #B0012D;
 }
 
-button[class="download"] {
+button.download {
   background: #0087BD;
 }
 
-button[class="download"]:hover {
+button.download:hover {
   background: #0095D1;
 }
 
-button[class="download"]:active {
+button.download:active {
   background: #0079A9;
 }
 
@@ -591,8 +609,11 @@ label + midi-player {
 }
 
 .question-numbers-panel {
-  font-family: var(--font-family-for-interacting);
   font-weight: bold;
+}
+
+.question-numbers-panel span {
+  padding: 0.5rem;
 }
 
 .neutral-question-number {
@@ -600,7 +621,7 @@ label + midi-player {
 }
 
 .neutral-question-next-number {
-  color: #111111;
+  color: #11111180;
 }
 
 .correct-question-number {

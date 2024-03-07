@@ -15,11 +15,14 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
 
   const checkAnswerButton = document.createElement('button')
   checkAnswerButton.classList.add('download')
+  checkAnswerButton.classList.add('questionnaire-button')
   checkAnswerButton.innerText = 'Check Answer'
   const nextQuestionButton = document.createElement('button')
   nextQuestionButton.classList.add('persist')
+  nextQuestionButton.classList.add('questionnaire-button')
   nextQuestionButton.innerText = 'Next Question'
   const startOverButton = document.createElement('button')
+  startOverButton.classList.add('questionnaire-button')
   startOverButton.innerText = 'Start Over'
 
   questionnaireGroupDiv.appendChild(checkAnswerButton)
@@ -70,7 +73,7 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
   )
 
   checkAnswerButton.addEventListener('click', () => {
-
+    
   })
 }
 
