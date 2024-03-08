@@ -523,31 +523,31 @@ Let's take a look at ordered list
 		</div>
 		<div>
 			<label>
-				<input type="checkbox" name="q2" value="1"/>
+				<input type="checkbox" value="1"/>
 				c
 			</label>
 			<label>
-				<input type="checkbox" name="q2" value="2"/>
+				<input type="checkbox" value="2"/>
 				d
 			</label>
 			<label>
-				<input type="checkbox" name="q2" value="3"/>
+				<input type="checkbox" value="3"/>
 				e
 			</label>
 			<label>
-				<input type="checkbox" name="q2" value="4"/>
+				<input type="checkbox" value="4"/>
 				f
 			</label>
 			<label>
-				<input type="checkbox" name="q2" value="5"/>
+				<input type="checkbox" value="5"/>
 				g
 			</label>
 			<label>
-				<input type="checkbox" name="q2" value="5"/>
+				<input type="checkbox" value="5"/>
 				a
 			</label>
 			<label>
-				<input type="checkbox" name="q2" value="5"/>
+				<input type="checkbox" value="5"/>
 				b
 			</label>
 		</div>
@@ -571,19 +571,19 @@ Let's take a look at ordered list
 		</div>
 		<div>
 			<label>
-				<input type="radio" name="q1" value="1"/>
+				<input type="radio" name="q3" value="1"/>
 				D Minor
 			</label>
 			<label>
-				<input type="radio" name="q1" value="2"/>
+				<input type="radio" name="q3" value="2"/>
 				C Major
 			</label>
 			<label>
-				<input type="radio" name="q1" value="3"/>
+				<input type="radio" name="q3" value="3"/>
 				A Minor
 			</label>
 			<label>
-				<input type="radio" name="q1" value="3"/>
+				<input type="radio" name="q3" value="3"/>
 				G Major
 			</label>
 		</div>
@@ -609,7 +609,7 @@ Let's take a look at ordered list
 				<img alt="preview" class="render-icon" src="/image/render.svg">
 			</span>
 			<template is="unison-textarea-svg-midi" id="q4">
-				page line width is 164
+				page line width is 300
 				background color is white
 				stretch units by 1.6 times
 				page top padding is 7
@@ -624,7 +624,7 @@ Let's take a look at ordered list
 				<img alt="copy" class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
 			</span>
 			<template is="unison-svg" id="qr4">
-				page line width is 268
+				page line width is 300
 				background color is white
 				stretch units by 1.6 times
 				page top padding is 7

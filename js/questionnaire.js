@@ -27,7 +27,7 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
 
   questionnaireGroupDiv.appendChild(checkAnswerButton)
   questionnaireGroupDiv.appendChild(nextQuestionButton)
-  questionnaireGroupDiv.appendChild(nextQuestionButton)
+  questionnaireGroupDiv.appendChild(startOverButton)
 
   nextQuestionButton.style.display = 'none'
   startOverButton.style.display = 'none'
@@ -40,39 +40,51 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
     throw new Error('all <template is="question"> must have attribute "data-right-answer"')
   }
 
-  const shuffledQuestionTemplates = shuffleArray(questionTemplates)
-  const numberOfQuestions = shuffledQuestionTemplates.length
-
   const panelWithQuestionNumbers = document.createElement('div')
   panelWithQuestionNumbers.classList.add('question-numbers-panel')
-  const questionNumberSpans = []
-  for (let questionIndex = 0; questionIndex < numberOfQuestions; questionIndex++) {
-    const questionNumberSpan = document.createElement('span')
-    questionNumberSpan.classList.add(
-      questionIndex === 0
-        ? 'neutral-question-number'
-        : 'neutral-question-next-number'
-    )
-    questionNumberSpan.innerText = `${questionIndex + 1}`
-    questionNumberSpans.push(questionNumberSpan)
-    panelWithQuestionNumbers.appendChild(questionNumberSpan)
-  }
   questionnaireGroupDiv.prepend(panelWithQuestionNumbers)
-
-  let currentQuestionIndex = 0
-  const firstQuestionTemplateNode = shuffledQuestionTemplates[currentQuestionIndex]
 
   const questionGroupDiv = document.createElement('div')
   questionGroupDiv.classList.add('group')
-
-  const firstRightAnswer = firstQuestionTemplateNode.getAttribute('data-right-answer')
-  const firstQuestionContentNode = document.importNode(firstQuestionTemplateNode.content, true)
-  questionGroupDiv.setAttribute('data-right-answer', firstRightAnswer)
-  questionGroupDiv.appendChild(firstQuestionContentNode)
-
-  firstQuestionTemplateNode.parentNode.insertBefore(
+  questionnaireGroupDiv.insertBefore(
     questionGroupDiv, checkAnswerButton
   )
+
+  let shuffledQuestionTemplates
+  let numberOfQuestions
+  let questionNumberSpans
+
+  function setupQuestionnaire () {
+    panelWithQuestionNumbers.innerHTML = ''
+
+    shuffledQuestionTemplates = shuffleArray(questionTemplates)
+    numberOfQuestions = shuffledQuestionTemplates.length
+
+    questionNumberSpans = []
+    for (let questionIndex = 0; questionIndex < numberOfQuestions; questionIndex++) {
+      const questionNumberSpan = document.createElement('span')
+      questionNumberSpan.classList.add('neutral-question-next-number')
+      questionNumberSpan.innerText = `${questionIndex + 1}`
+      questionNumberSpans.push(questionNumberSpan)
+      panelWithQuestionNumbers.appendChild(questionNumberSpan)
+    }
+  }
+
+  let currentQuestionIndex = 0
+
+  function releaseNextQuestion () {
+    questionGroupDiv.innerHTML = ''
+    const questionTemplateNode = shuffledQuestionTemplates[currentQuestionIndex]
+    const rightAnswer = questionTemplateNode.getAttribute('data-right-answer')
+    const questionContentNode = document.importNode(questionTemplateNode.content, true)
+    questionGroupDiv.setAttribute('data-right-answer', rightAnswer)
+    questionGroupDiv.appendChild(questionContentNode)
+    questionNumberSpans[currentQuestionIndex].classList.remove('neutral-question-next-number')
+    questionNumberSpans[currentQuestionIndex].classList.add('neutral-question-number')
+  }
+
+  setupQuestionnaire()
+  releaseNextQuestion()
 
   checkAnswerButton.addEventListener('click', () => {
     const rightAnswer = questionGroupDiv.getAttribute('data-right-answer')
@@ -88,8 +100,9 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
     }
     const questionHasCheckboxAnswers = checkboxAnswers.length > 0
     const questionHasRadioAnswers = radioAnswers.length > 0
-    const questionHasSelectAnswer = selectAnswer !== null
-    const questionHasTextareaAnswer = textareaAnswer !== null
+    const questionHasSelectAnswer = selectAnswer !== undefined
+    const questionHasTextareaAnswer = textareaAnswer !== undefined
+
     let userAnswerIsCorrect = false
     if (questionHasCheckboxAnswers) {
       let userAnswer = []
@@ -167,7 +180,7 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
         divWithRightAnswer.prepend(correctLabel)
         divWithRightAnswer.style.display = 'block'
         const userAnswerContent = svgWithRightAnswer.innerHTML
-        const rightAnswerContent = questionGroupDiv.querySelector(rightAnswer).querySelector('svg').innerHTML
+        const rightAnswerContent = textareaAnswer.parentNode.querySelector('svg').innerHTML
         if (userAnswerContent === rightAnswerContent) {
           const correctImgCheckmark = document.createElement('img')
           correctImgCheckmark.setAttribute('src', '/image/correct.svg')
@@ -209,6 +222,7 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
           : 'wrong-question-number'
       )
       checkAnswerButton.style.display = 'none'
+      console.log(currentQuestionIndex + 1, numberOfQuestions)
       if ((currentQuestionIndex + 1) === numberOfQuestions) {
         startOverButton.style.display = 'block'
       } else {
@@ -218,11 +232,18 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
   })
 
   nextQuestionButton.addEventListener('click', () => {
-
+    currentQuestionIndex += 1
+    releaseNextQuestion()
+    checkAnswerButton.style.display = 'block'
+    nextQuestionButton.style.display = 'none'
   })
 
   startOverButton.addEventListener('click', () => {
-
+    currentQuestionIndex = 0
+    setupQuestionnaire()
+    releaseNextQuestion()
+    checkAnswerButton.style.display = 'block'
+    startOverButton.style.display = 'none'
   })
 }
 
