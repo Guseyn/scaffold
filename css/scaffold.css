@@ -163,7 +163,7 @@ div::-webkit-scrollbar {
 }
 
 div:not(.group) span:has(img) + pre {
-  margin-top: -1.2rem;
+  margin-top: -1.6rem;
   margin-bottom: 0rem;
   box-sizing: border-box;
   background-color: #fefefe;
@@ -178,7 +178,7 @@ div:not(.group):has(pre) span:has(img) {
 
 div:not(.group):has(span) svg {
   display: block;
-  margin-top: -1.2em;
+  margin-top: -1.6rem;
   margin-left: auto;
   margin-right: auto;
 }
@@ -195,8 +195,8 @@ div:not(.group):has(svg) img.copy-icon {
 
 div:not(.group):has(svg) label {
   position: absolute;
-  top: 0.6rem;
-  left: 0.6rem;
+  top: 0.25rem;
+  left: 0.25rem;
 }
 
 div:not(.group):has(table) {
@@ -281,18 +281,18 @@ input[type="radio"] {
 }
 
 label input[type="checkbox"],
-label input[type="radio"],
-label img {
+label input[type="radio"] {
   width: 26px;
   height: 26px;
   vertical-align: middle;
   margin-right: 0.4rem;
-  margin-bottom: 0.2rem;
 }
 
 label img {
   width: 36px;
   height: 36px;
+  vertical-align: middle;
+  margin-right: 0.1rem;
 }
 
 div:not(.group):has(label:not(.block)),
@@ -304,7 +304,7 @@ div:not(.group):has(label:not(.block)) {
 label:has(input[type="checkbox"]),
 label:has(input[type="radio"]),
 label:has(img) {
-  padding: 1rem;
+  padding: 0.6rem;
   margin: 0 auto;
 }
 
@@ -501,7 +501,7 @@ span:has(img.copy-icon) {
 }
 
 .katex-display {
-  margin-top: -1em;
+  margin-top: -1.6rem;
   margin-bottom: 0em;
 }
 

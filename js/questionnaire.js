@@ -79,7 +79,13 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
     const checkboxAnswers = Array.from(questionGroupDiv.querySelectorAll('input[type="checkbox"]'))
     const radioAnswers = Array.from(questionGroupDiv.querySelectorAll('input[type="radio"]'))
     const selectAnswer = questionGroupDiv.querySelector('select')
-    const textareaAnswer = questionGroupDiv.querySelector('textarea')
+    let textareaAnswer
+    if (questionGroupDiv.querySelectorAll('div').length > 0) {
+      const shadowRoot = questionGroupDiv.querySelectorAll('div')[1].shadowRoot
+      if (shadowRoot) {
+        textareaAnswer = shadowRoot.querySelector('textarea')
+      }
+    }
     const questionHasCheckboxAnswers = checkboxAnswers.length > 0
     const questionHasRadioAnswers = radioAnswers.length > 0
     const questionHasSelectAnswer = selectAnswer !== null
@@ -147,18 +153,67 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
         }
       }
     } else if (questionHasTextareaAnswer) {
-      
-    }
-    questionNumberSpans[currentQuestionIndex].classList.add(
-      userAnswerIsCorrect
-        ? 'correct-question-number'
-        : 'wrong-question-number'
-    )
-    checkAnswerButton.style.display = 'none'
-    if ((currentQuestionIndex + 1) === numberOfQuestions) {
-      startOverButton.style.display = 'block'
+      const renderIcon = textareaAnswer.parentNode.querySelector('.render-icon')
+      renderIcon.click()
+      setTimeout(() => {
+        const divWithRightAnswer = questionGroupDiv.querySelector(rightAnswer)
+        const svgWithRightAnswer = divWithRightAnswer.querySelector('svg')
+        const correctImgCheckmark = document.createElement('img')
+        correctImgCheckmark.setAttribute('src', '/image/correct.svg')
+        const correctLabel = document.createElement('label')
+        correctLabel.setAttribute('data-correct', 'true')
+        correctLabel.classList.add('block')
+        correctLabel.prepend(correctImgCheckmark)
+        divWithRightAnswer.prepend(correctLabel)
+        divWithRightAnswer.style.display = 'block'
+        const userAnswerContent = svgWithRightAnswer.innerHTML
+        const rightAnswerContent = questionGroupDiv.querySelector(rightAnswer).querySelector('svg').innerHTML
+        if (userAnswerContent === rightAnswerContent) {
+          const correctImgCheckmark = document.createElement('img')
+          correctImgCheckmark.setAttribute('src', '/image/correct.svg')
+          const correctLabel = document.createElement('label')
+          correctLabel.setAttribute('data-correct', 'true')
+          correctLabel.classList.add('block')
+          correctLabel.prepend(correctImgCheckmark)
+          textareaAnswer.parentNode.prepend(correctLabel)
+          userAnswerIsCorrect = true
+        } else {
+          const wrongImgCheckmark = document.createElement('img')
+          wrongImgCheckmark.setAttribute('src', '/image/wrong.svg')
+          const wrongLabel = document.createElement('label')
+          wrongLabel.setAttribute('data-correct', 'false')
+          wrongLabel.classList.add('block')
+          wrongLabel.prepend(wrongImgCheckmark)
+          textareaAnswer.parentNode.prepend(wrongLabel)
+          userAnswerIsCorrect = false
+        }
+        questionNumberSpans[currentQuestionIndex].classList.add(
+          userAnswerIsCorrect
+            ? 'correct-question-number'
+            : 'wrong-question-number'
+        )
+        checkAnswerButton.style.display = 'none'
+        if ((currentQuestionIndex + 1) === numberOfQuestions) {
+          startOverButton.style.display = 'block'
+        } else {
+          nextQuestionButton.style.display = 'block'
+        }
+      }, 300)
     } else {
-      nextQuestionButton.style.display = 'block'
+      throw new Error('question does not have options to answer')
+    }
+    if (!questionHasTextareaAnswer) {
+      questionNumberSpans[currentQuestionIndex].classList.add(
+        userAnswerIsCorrect
+          ? 'correct-question-number'
+          : 'wrong-question-number'
+      )
+      checkAnswerButton.style.display = 'none'
+      if ((currentQuestionIndex + 1) === numberOfQuestions) {
+        startOverButton.style.display = 'block'
+      } else {
+        nextQuestionButton.style.display = 'block'
+      }
     }
   })
 

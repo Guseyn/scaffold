@@ -244,9 +244,40 @@ window.__ehtmlCustomElements__['unison-textarea-svg-midi-template'] = (node) => 
 
     svg {
       display: block;
-      margin-top: -1.2em;
+      margin-top: -1.4em;
       margin-left: auto;
       margin-right: auto;
+    }
+
+    label {
+      position: absolute;
+      top: 0.25rem;
+      left: 0.25rem;
+    }
+
+    label.block:has(img) {
+      display: block;
+      width: max-content;
+    }
+
+    label[data-correct="true"] {
+      color: #009F6B;
+    }
+
+    label[data-correct="false"] {
+      color: #C40233;
+    }
+
+    label:has(img) {
+      padding: 0.6rem;
+      margin: 0 auto;
+    }
+
+    label img {
+      width: 36px;
+      height: 36px;
+      vertical-align: middle;
+      margin-right: 0.1rem;
     }
   `
   const styleElement = textarea.initialParentElement.shadowRoot.querySelector('style')
