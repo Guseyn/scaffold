@@ -637,3 +637,11 @@ Let's take a look at ordered list
   </template>
 </template>
 
+<span class="quote">
+  <span class="quote-text">
+    “&nbsp;&nbsp;Truth is ever to be found in the simplicity, and not in the multiplicity and confusion of things.&nbsp;&nbsp;”
+  </span>
+  <span class="quote-author">
+    Isaac Newton
+  </span>
+</span>

@@ -216,6 +216,30 @@ span {
 
 }
 
+span.quote {
+  display: block;
+  width: 80%;
+  height: auto;
+  margin: 1em auto;
+}
+
+span.quote-text {
+  text-align: left;
+  word-break: break-all;
+  word-wrap: break-word;
+  padding: 0.2em;
+  font-style: italic;
+  color: #454545;
+  font-size: 1.25rem;
+}
+
+span.quote-author {
+  display: block;
+  font-size: 0.75em;
+  text-align: right;
+  color: #767676;
+}
+
 input::placeholder {
   font-style: italic;
   opacity: 0.6;
@@ -657,4 +681,3 @@ label + midi-player {
     width: 100%;
   }
 }
-

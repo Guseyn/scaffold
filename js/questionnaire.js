@@ -222,7 +222,6 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
           : 'wrong-question-number'
       )
       checkAnswerButton.style.display = 'none'
-      console.log(currentQuestionIndex + 1, numberOfQuestions)
       if ((currentQuestionIndex + 1) === numberOfQuestions) {
         startOverButton.style.display = 'block'
       } else {
@@ -236,6 +235,7 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
     releaseNextQuestion()
     checkAnswerButton.style.display = 'block'
     nextQuestionButton.style.display = 'none'
+    questionNumberSpans[currentQuestionIndex].scrollIntoView()
   })
 
   startOverButton.addEventListener('click', () => {
@@ -244,6 +244,7 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
     releaseNextQuestion()
     checkAnswerButton.style.display = 'block'
     startOverButton.style.display = 'none'
+    questionNumberSpans[currentQuestionIndex].scrollIntoView()
   })
 }
 
