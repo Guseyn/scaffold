@@ -225,8 +225,6 @@ span.quote {
 
 span.quote-text {
   text-align: left;
-  word-break: break-all;
-  word-wrap: break-word;
   padding: 0.2em;
   font-style: italic;
   color: #454545;
