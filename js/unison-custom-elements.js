@@ -49,7 +49,8 @@ window.__ehtmlCustomElements__['unison-svg-midi-template'] = (node) => {
     )
 
     const midiForAllPages = event.detail.midiForAllPages
-    const midiPlayer = window.createMidiPlayer(id, midiForAllPages)
+    const soundFont = node.getAttribute('data-sound-font')
+    const midiPlayer = window.createMidiPlayer(id, midiForAllPages, soundFont)
     svg.parentNode.appendChild(midiPlayer)
 
     const customStyles = event.detail.unilangOutputsForEachPage[0].customStyles
@@ -103,7 +104,8 @@ window.__ehtmlCustomElements__['unison-midi-template'] = (node) => {
   const unilangText = contentNode.textContent
   const unilangOutputRetrievedEvent = (event) => {
     const midiForAllPages = event.detail.midiForAllPages
-    const midiPlayer = window.createMidiPlayer(id, midiForAllPages)
+    const soundFont = node.getAttribute('data-sound-font')
+    const midiPlayer = window.createMidiPlayer(id, midiForAllPages, soundFont)
     node.parentNode.replaceChild(
       midiPlayer, node
     )
@@ -309,7 +311,8 @@ window.__ehtmlCustomElements__['unison-textarea-svg-midi-template'] = (node) => 
 
       const midiForAllPages = event.detail.midiForAllPages
       const midiDataSrc = midiForAllPages.dataSrc
-      const midiPlayer = window.createMidiPlayer(id, midiForAllPages)
+      soundFont = node.getAttribute('data-sound-font')
+      const midiPlayer = window.createMidiPlayer(id, midiForAllPages, soundFont)
       textarea.initialParentElement.shadowRoot.appendChild(midiPlayer)
 
       const customStyles = event.detail.unilangOutputsForEachPage[0].customStyles
@@ -453,10 +456,10 @@ window.attachHighliterToMidiPlayer = (midiPlayer, svgParent, customStyles) => {
   })
 }
 
-window.createMidiPlayer = (id, midiForAllPages) => {
+window.createMidiPlayer = (id, midiForAllPages, soundFont = 'https://cdn.unisonofficial.com/magenta-soundfonts/SGM') => {
   const midiPlayer = document.createElement('midi-player')
   midiPlayer.setAttribute('id', `midi-player-${id}`)
-  midiPlayer.setAttribute('sound-font', 'https://cdn.unisonofficial.com/magenta-soundfonts/SGM')
+  midiPlayer.setAttribute('sound-font', soundFont)
   midiPlayer.setAttribute('visualizer', '#myVisualizer')
   midiPlayer.setAttribute(
     'src',
