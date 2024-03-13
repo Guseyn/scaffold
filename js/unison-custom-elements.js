@@ -456,7 +456,8 @@ window.attachHighliterToMidiPlayer = (midiPlayer, svgParent, customStyles) => {
   })
 }
 
-window.createMidiPlayer = (id, midiForAllPages, soundFont = 'https://cdn.unisonofficial.com/magenta-soundfonts/SGM') => {
+window.createMidiPlayer = (id, midiForAllPages, soundFont) => {
+  soundFont = soundFont || 'https://cdn.unisonofficial.com/magenta-soundfonts/SGM'
   const midiPlayer = document.createElement('midi-player')
   midiPlayer.setAttribute('id', `midi-player-${id}`)
   midiPlayer.setAttribute('sound-font', soundFont)
