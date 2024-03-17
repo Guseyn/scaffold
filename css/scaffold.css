@@ -140,6 +140,11 @@ li {
   line-height: 1.6rem;
 }
 
+li input[type="checkbox"] {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
 div:not(.group) {
   position: relative;
   overflow-x: auto;
@@ -155,6 +160,10 @@ div:not(.group) {
 }
 
 div:not(.group) + div:not(.group) {
+  margin-top: 1em;
+}
+
+div:not(.group) + br + div:not(.group) {
   margin-top: 1em;
 }
 

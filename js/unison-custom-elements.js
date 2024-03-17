@@ -311,7 +311,7 @@ window.__ehtmlCustomElements__['unison-textarea-svg-midi-template'] = (node) => 
 
       const midiForAllPages = event.detail.midiForAllPages
       const midiDataSrc = midiForAllPages.dataSrc
-      soundFont = node.getAttribute('data-sound-font')
+      const soundFont = node.getAttribute('data-sound-font')
       const midiPlayer = window.createMidiPlayer(id, midiForAllPages, soundFont)
       textarea.initialParentElement.shadowRoot.appendChild(midiPlayer)
 

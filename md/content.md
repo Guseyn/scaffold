@@ -608,7 +608,7 @@ Let's take a look at ordered list
         <img alt="edit" class="edit-icon" src="/image/edit.svg" style="display: none" >
         <img alt="preview" class="render-icon" src="/image/render.svg">
       </span>
-      <template is="unison-textarea-svg-midi" id="q4">
+      <template is="unison-textarea-svg-midi" id="qa4">
         page line width is 300
         background color is white
         stretch units by 1.6 times
@@ -633,6 +633,89 @@ Let's take a look at ordered list
         treble clef
         c d e f g a b
       </template>
+    </div>
+  </template>
+  <template is="question" data-right-answer="#real-answer-q5">
+    <p class="question-title">Write Down What You See</p>
+    <div id="real-answer-q5">
+      <span>
+        <img alt="copy" class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
+      </span>
+      <template is="unison-svg" id="qr5">
+        page line width is 300
+        background color is white
+        stretch units by 1.6 times
+        page top padding is 7
+        page bottom padding is 7
+        measure ends with double bold barline
+        treble clef
+        c d e f g a b
+      </template>
+    </div>
+    <div>
+      <span>
+        <img alt="copy" class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
+        <img alt="edit" class="edit-icon" src="/image/edit.svg" style="display: none" >
+        <img alt="preview" class="render-icon" src="/image/render.svg">
+      </span>
+      <template is="unison-textarea-svg-midi" id="qa5">
+        page line width is 300
+        background color is white
+        stretch units by 1.6 times
+        page top padding is 7
+        page bottom padding is 7
+        measure ends with double bold barline
+        treble clef
+        c d e f g a b
+      </template>
+    </div>
+  </template>
+  <template is="question" data-right-answer="1">
+    <p class="question-title">Which Key Signature Do You See</p>
+    <div>
+      <span>
+        <img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
+      </span>
+      <template is="unison-svg" id="q6">
+        page line width is 164
+        background color is white
+        stretch units by 1.6 times
+        page top padding is 7
+        page bottom padding is 7
+        measure ends with double bold barline
+        treble clef
+        key signature is d minor
+      </template>
+    </div>
+    <div>
+      <select>
+        <option value="1">D minor</option>
+        <option value="2">G minor</option>
+        <option value="3">F minor</option>
+        <option value="4">A minor</option>
+        <option value="5">B minor</option>
+      </select>
+    </div>
+  </template>
+  <template is="question" data-right-answer="D minor">
+    <p class="question-title">Which Key Signature Do You See</p>
+    <div>
+      <span>
+        <img class="copy-icon" src="/image/copy.svg" onclick="copyText(this)">
+      </span>
+      <template is="unison-svg" id="q6">
+        page line width is 164
+        background color is white
+        stretch units by 1.6 times
+        page top padding is 7
+        page bottom padding is 7
+        measure ends with double bold barline
+        treble clef
+        key signature is d minor
+      </template>
+    </div>
+    <div>
+      <input type="text" placeholder="Type your answer"></input>
     </div>
   </template>
 </template>

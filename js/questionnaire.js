@@ -91,6 +91,7 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
     const checkboxAnswers = Array.from(questionGroupDiv.querySelectorAll('input[type="checkbox"]'))
     const radioAnswers = Array.from(questionGroupDiv.querySelectorAll('input[type="radio"]'))
     const selectAnswer = questionGroupDiv.querySelector('select')
+    const inputAnswer = questionGroupDiv.querySelector('input[type="text"]')
     let textareaAnswer
     if (questionGroupDiv.querySelectorAll('div').length > 0) {
       const shadowRoot = questionGroupDiv.querySelectorAll('div')[1].shadowRoot
@@ -100,8 +101,9 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
     }
     const questionHasCheckboxAnswers = checkboxAnswers.length > 0
     const questionHasRadioAnswers = radioAnswers.length > 0
-    const questionHasSelectAnswer = selectAnswer !== undefined
-    const questionHasTextareaAnswer = textareaAnswer !== undefined
+    const questionHasSelectAnswer = selectAnswer !== undefined && selectAnswer !== null
+    const questionHasInputAnswer = inputAnswer !== undefined && inputAnswer !== null
+    const questionHasTextareaAnswer = textareaAnswer !== undefined && textareaAnswer !== null
 
     let userAnswerIsCorrect = false
     if (questionHasCheckboxAnswers) {
@@ -167,6 +169,7 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
       }
     } else if (questionHasTextareaAnswer) {
       const renderIcon = textareaAnswer.parentNode.querySelector('.render-icon')
+      const editIcon = textareaAnswer.parentNode.querySelector('.edit-icon')
       renderIcon.click()
       setTimeout(() => {
         const divWithRightAnswer = questionGroupDiv.querySelector(rightAnswer)
@@ -189,6 +192,7 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
           correctLabel.classList.add('block')
           correctLabel.prepend(correctImgCheckmark)
           textareaAnswer.parentNode.prepend(correctLabel)
+          editIcon.style.display = 'none'
           userAnswerIsCorrect = true
         } else {
           const wrongImgCheckmark = document.createElement('img')
@@ -198,6 +202,7 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
           wrongLabel.classList.add('block')
           wrongLabel.prepend(wrongImgCheckmark)
           textareaAnswer.parentNode.prepend(wrongLabel)
+          editIcon.style.display = 'none'
           userAnswerIsCorrect = false
         }
         questionNumberSpans[currentQuestionIndex].classList.add(
@@ -212,6 +217,22 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
           nextQuestionButton.style.display = 'block'
         }
       }, 300)
+    } else if (questionHasSelectAnswer) {
+      if (selectAnswer.value === rightAnswer) {
+        selectAnswer.style.border = '2px solid #009F6B'
+        userAnswerIsCorrect = true
+      } else {
+        selectAnswer.style.border = '2px solid #C40233'
+        userAnswerIsCorrect = false
+      }
+    } else if (questionHasInputAnswer) {
+      if (inputAnswer.value === rightAnswer) {
+        inputAnswer.style.border = '2px solid #009F6B'
+        userAnswerIsCorrect = true
+      } else {
+        inputAnswer.style.border = '2px solid #C40233'
+        userAnswerIsCorrect = false
+      }
     } else {
       throw new Error('question does not have options to answer')
     }
