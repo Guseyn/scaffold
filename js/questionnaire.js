@@ -81,6 +81,9 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
     questionGroupDiv.appendChild(questionContentNode)
     questionNumberSpans[currentQuestionIndex].classList.remove('neutral-question-next-number')
     questionNumberSpans[currentQuestionIndex].classList.add('neutral-question-number')
+    questionNumberSpans[currentQuestionIndex].scrollIntoView({
+      inline: 'center'
+    })
   }
 
   setupQuestionnaire()
@@ -256,7 +259,6 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
     releaseNextQuestion()
     checkAnswerButton.style.display = 'block'
     nextQuestionButton.style.display = 'none'
-    questionNumberSpans[currentQuestionIndex].scrollIntoView()
   })
 
   startOverButton.addEventListener('click', () => {
@@ -265,7 +267,6 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
     releaseNextQuestion()
     checkAnswerButton.style.display = 'block'
     startOverButton.style.display = 'none'
-    questionNumberSpans[currentQuestionIndex].scrollIntoView()
   })
 }
 
