@@ -13,6 +13,10 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
     questionnaireGroupDiv, node
   )
 
+  const finalScorePanel = document.createElement('span')
+  finalScorePanel.classList.add('final-score')
+  questionnaireGroupDiv.appendChild(finalScorePanel)
+
   const checkAnswerButton = document.createElement('button')
   checkAnswerButton.classList.add('download')
   checkAnswerButton.classList.add('questionnaire-button')
@@ -42,16 +46,17 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
 
   const panelWithQuestionNumbers = document.createElement('div')
   panelWithQuestionNumbers.classList.add('question-numbers-panel')
-  questionnaireGroupDiv.prepend(panelWithQuestionNumbers)
+  questionnaireGroupDiv.appendChild(panelWithQuestionNumbers)
 
   const questionGroupDiv = document.createElement('div')
   questionGroupDiv.classList.add('group')
   questionnaireGroupDiv.insertBefore(
-    questionGroupDiv, checkAnswerButton
+    questionGroupDiv, finalScorePanel
   )
 
   let shuffledQuestionTemplates
   let numberOfQuestions
+  let numberOfCorrectAnswers = 0
   let questionNumberSpans
 
   function setupQuestionnaire () {
@@ -84,6 +89,21 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
     questionNumberSpans[currentQuestionIndex].scrollIntoView({
       inline: 'center'
     })
+  }
+
+  function continueOrFinishQuestioneer (userAnswerIsCorrect) {
+    if (userAnswerIsCorrect) {
+      numberOfCorrectAnswers += 1
+    }
+    checkAnswerButton.style.display = 'none'
+    if ((currentQuestionIndex + 1) === numberOfQuestions) {
+      startOverButton.style.display = 'block'
+      finalScorePanel.style.display = 'block'
+      finalScorePanel.innerText = `Final Score: ${numberOfCorrectAnswers}/${numberOfQuestions}`
+      numberOfCorrectAnswers = 0
+    } else {
+      nextQuestionButton.style.display = 'block'
+    }
   }
 
   setupQuestionnaire()
@@ -213,12 +233,7 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
             ? 'correct-question-number'
             : 'wrong-question-number'
         )
-        checkAnswerButton.style.display = 'none'
-        if ((currentQuestionIndex + 1) === numberOfQuestions) {
-          startOverButton.style.display = 'block'
-        } else {
-          nextQuestionButton.style.display = 'block'
-        }
+        continueOrFinishQuestioneer(userAnswerIsCorrect)
       }, 300)
     } else if (questionHasSelectAnswer) {
       if (selectAnswer.value === rightAnswer) {
@@ -245,12 +260,7 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
           ? 'correct-question-number'
           : 'wrong-question-number'
       )
-      checkAnswerButton.style.display = 'none'
-      if ((currentQuestionIndex + 1) === numberOfQuestions) {
-        startOverButton.style.display = 'block'
-      } else {
-        nextQuestionButton.style.display = 'block'
-      }
+      continueOrFinishQuestioneer(userAnswerIsCorrect)
     }
   })
 
@@ -267,6 +277,8 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
     releaseNextQuestion()
     checkAnswerButton.style.display = 'block'
     startOverButton.style.display = 'none'
+    finalScorePanel.innerText = ''
+    finalScorePanel.style.display = 'none'
   })
 }
 

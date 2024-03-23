@@ -220,10 +220,6 @@ div.group br {
   display: none;
 }
 
-button.questionnaire-button {
-  margin-top: 3rem;
-}
-
 span {
 
 }
@@ -653,13 +649,19 @@ label + midi-player {
   text-align: center;
   font-family: var(--font-family-for-interacting);
   font-size: 1.6rem;
-  margin-top: 4rem;
+  margin-top: 2rem;
 }
 
 .question-numbers-panel {
   font-weight: bold;
   cursor: default;
   user-select: none;
+  padding: 0.5rem;
+  margin-top: 2rem;
+}
+
+button.questionnaire-button {
+  margin-top: 2rem;
 }
 
 .question-numbers-panel span {
@@ -680,6 +682,13 @@ label + midi-player {
 
 .wrong-question-number {
   color: #C40233;
+}
+
+.final-score {
+  text-align: center;
+  font-size: 1.6rem;
+  display: none;
+  margin-top: 2rem;
 }
 
 @media only screen and (max-width: 840px) {
