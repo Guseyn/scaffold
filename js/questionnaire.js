@@ -61,8 +61,14 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
 
   function setupQuestionnaire () {
     panelWithQuestionNumbers.innerHTML = ''
-
-    shuffledQuestionTemplates = shuffleArray(questionTemplates)
+    shuffledQuestionTemplates = shuffleArray(questionTemplates).sort((qt1, qt2) => {
+      if (qt1.hasAttribute('data-priority') && qt2.hasAttribute('data-priority')) {
+        if ((qt1.getAttribute('data-priority') * 1) < (qt2.getAttribute('data-priority') * 1)) {
+          return -1
+        }
+      }
+      return 0
+    })
     numberOfQuestions = shuffledQuestionTemplates.length
 
     questionNumberSpans = []
