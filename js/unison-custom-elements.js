@@ -61,7 +61,7 @@ window.__ehtmlCustomElements__['unison-svg-midi-template'] = (node) => {
     window.removeEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
   }
   window.addEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
-  window.unilangOutputViaWorker([ unilangText ], false, true, true, id)
+  window.unilangOutputViaWorker([ { unilangInputText: unilangText, isRenderedWithLatestUnilangInputText: false } ], false, true, true, id)
 }
 
 window.__ehtmlCustomElements__['unison-svg-template'] = (node) => {
@@ -89,7 +89,7 @@ window.__ehtmlCustomElements__['unison-svg-template'] = (node) => {
     window.removeEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
   }
   window.addEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
-  window.unilangOutputViaWorker([ unilangText ], false, true, false, id)
+  window.unilangOutputViaWorker([ { unilangInputText: unilangText, isRenderedWithLatestUnilangInputText: false } ], false, true, false, id)
 }
 
 window.__ehtmlCustomElements__['unison-midi-template'] = (node) => {
@@ -112,7 +112,7 @@ window.__ehtmlCustomElements__['unison-midi-template'] = (node) => {
     window.removeEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
   }
   window.addEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
-  window.unilangOutputViaWorker([ unilangText ], false, false, true, id)
+  window.unilangOutputViaWorker([ { unilangInputText: unilangText, isRenderedWithLatestUnilangInputText: false } ], false, false, true, id)
 }
 
 window.__ehtmlCustomElements__['unison-text-highlights-template'] = (node) => {
@@ -143,7 +143,7 @@ window.__ehtmlCustomElements__['unison-text-highlights-template'] = (node) => {
     window.removeEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
   }
   window.addEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
-  window.unilangOutputViaWorker([ unilangText ], true, false, false, id)
+  window.unilangOutputViaWorker([ { unilangInputText: unilangText, isRenderedWithLatestUnilangInputText: false } ], true, false, false, id)
 }
 
 window.__ehtmlCustomElements__['unison-textarea-svg-midi-template'] = (node) => {
@@ -335,7 +335,7 @@ window.__ehtmlCustomElements__['unison-textarea-svg-midi-template'] = (node) => 
       window.removeEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
     }
     window.addEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
-    window.unilangOutputViaWorker([ unilangText ], true, true, true, id)
+    window.unilangOutputViaWorker([ { unilangInputText: unilangText, isRenderedWithLatestUnilangInputText: textarea.isRenderedWithLatestUnilangInputText } ], true, true, true, id)
     textarea.initialParentElement.style.opacity = '0.5'
   })
 
