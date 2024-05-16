@@ -61,14 +61,19 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
 
   function setupQuestionnaire () {
     panelWithQuestionNumbers.innerHTML = ''
-    shuffledQuestionTemplates = shuffleArray(questionTemplates).sort((qt1, qt2) => {
-      if (qt1.hasAttribute('data-priority') && qt2.hasAttribute('data-priority')) {
-        if ((qt1.getAttribute('data-priority') * 1) < (qt2.getAttribute('data-priority') * 1)) {
-          return -1
+    shuffledQuestionTemplates = shuffleArray(
+      repeatQuestionsIfNeeded(questionTemplates)
+    ).filter((qt) => {
+        return !qt.hasAttribute('data-ignore')
+      })
+      .sort((qt1, qt2) => {
+        if (qt1.hasAttribute('data-priority') && qt2.hasAttribute('data-priority')) {
+          if ((qt1.getAttribute('data-priority') * 1) < (qt2.getAttribute('data-priority') * 1)) {
+            return -1
+          }
         }
-      }
-      return 0
-    })
+        return 0
+      })
     numberOfQuestions = shuffledQuestionTemplates.length
 
     questionNumberSpans = []
@@ -84,17 +89,24 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
   let currentQuestionIndex = 0
 
   function releaseNextQuestion () {
-    questionGroupDiv.innerHTML = ''
-    const questionTemplateNode = shuffledQuestionTemplates[currentQuestionIndex]
-    const rightAnswer = questionTemplateNode.getAttribute('data-right-answer')
-    const questionContentNode = document.importNode(questionTemplateNode.content, true)
-    questionGroupDiv.setAttribute('data-right-answer', rightAnswer)
-    questionGroupDiv.appendChild(questionContentNode)
-    questionNumberSpans[currentQuestionIndex].classList.remove('neutral-question-next-number')
-    questionNumberSpans[currentQuestionIndex].classList.add('neutral-question-number')
-    questionNumberSpans[currentQuestionIndex].scrollIntoView({
-      inline: 'center'
-    })
+    pauseMidiPlayerIfNeeded()
+    if (shuffledQuestionTemplates[currentQuestionIndex]) {
+      questionGroupDiv.innerHTML = ''
+      const questionTemplateNode = shuffledQuestionTemplates[currentQuestionIndex]
+      const rightAnswer = questionTemplateNode.getAttribute('data-right-answer')
+      const questionContentNode = document.importNode(questionTemplateNode.content, true)
+      questionGroupDiv.setAttribute('data-right-answer', rightAnswer)
+      questionGroupDiv.appendChild(questionContentNode)
+      questionNumberSpans[currentQuestionIndex].classList.remove('neutral-question-next-number')
+      questionNumberSpans[currentQuestionIndex].classList.add('neutral-question-number')
+      questionNumberSpans[currentQuestionIndex].scrollIntoView({
+        inline: 'center'
+      })
+      const questionTitle = document.querySelector('.question-title')
+      if (questionGroupDiv) {
+        questionTitle.innerHTML = `${questionTitle.innerHTML} (${currentQuestionIndex + 1}/${numberOfQuestions})`
+      }
+    }
   }
 
   function continueOrFinishQuestioneer (userAnswerIsCorrect) {
@@ -102,7 +114,7 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
       numberOfCorrectAnswers += 1
     }
     checkAnswerButton.style.display = 'none'
-    if ((currentQuestionIndex + 1) === numberOfQuestions) {
+    if ((currentQuestionIndex + 1) === numberOfQuestions || (numberOfQuestions === 0)) {
       startOverButton.style.display = 'block'
       finalScorePanel.style.display = 'block'
       finalScorePanel.innerText = `Final Score: ${numberOfCorrectAnswers}/${numberOfQuestions}`
@@ -113,7 +125,11 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
   }
 
   setupQuestionnaire()
-  releaseNextQuestion()
+  if (shuffledQuestionTemplates.length === 0) {
+    continueOrFinishQuestioneer(false)
+  } else {
+    releaseNextQuestion()
+  }
 
   checkAnswerButton.addEventListener('click', () => {
     const rightAnswer = questionGroupDiv.getAttribute('data-right-answer')
@@ -280,17 +296,21 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
   startOverButton.addEventListener('click', () => {
     currentQuestionIndex = 0
     setupQuestionnaire()
-    releaseNextQuestion()
-    checkAnswerButton.style.display = 'block'
-    startOverButton.style.display = 'none'
-    finalScorePanel.innerText = ''
-    finalScorePanel.style.display = 'none'
+    if (shuffledQuestionTemplates.length === 0) {
+      continueOrFinishQuestioneer(false)
+    } else {
+      releaseNextQuestion()
+      checkAnswerButton.style.display = 'block'
+      startOverButton.style.display = 'none'
+      finalScorePanel.innerText = ''
+      finalScorePanel.style.display = 'none'
+    }
   })
 }
 
 ///////////////////////////// FUNCTIONS /////////////////////////////
 
-function shuffleArray(array) {
+function shuffleArray (array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
     const aitmp = array[i]
@@ -298,4 +318,29 @@ function shuffleArray(array) {
     array[j] = aitmp
   }
   return array
+}
+
+function repeatQuestionsIfNeeded (questionTemplates) {
+  for (let i = 0; i < questionTemplates.length; i++) {
+    if (questionTemplates[i].hasAttribute('data-repeat')) {
+      const numberOfRepetitions = questionTemplates[i].getAttribute('data-repeat') * 1
+      questionTemplates[i].removeAttribute('data-repeat')
+      for (let n = 0; n < numberOfRepetitions; n++) {
+        const repeatedQuestion = questionTemplates[i].cloneNode(true)
+        questionTemplates.push(repeatedQuestion)
+        questionTemplates[i].parentNode.appendChild(repeatedQuestion)
+      }
+    }
+  }
+  return questionTemplates
+}
+
+function pauseMidiPlayerIfNeeded () {
+  const midiPlayer = document.querySelector('midi-player')
+  if (midiPlayer) {
+    const playButton = midiPlayer.shadowRoot.querySelector('button')
+    if (playButton.parentElement.classList.contains('playing')) {
+      playButton.click()
+    }
+  }
 }
