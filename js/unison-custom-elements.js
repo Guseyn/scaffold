@@ -83,8 +83,9 @@ window.__ehtmlCustomElements__['unison-svg-template'] = (node) => {
       svg, node
     )
 
-    const customStyles = event.detail.unilangOutputsForEachPage[0].customStyles
-    svg.parentNode.style.backgroundColor = customStyles.backgroundColor || '#FDF5E6'
+    // const customStyles = event.detail.unilangOutputsForEachPage[0].customStyles
+    // svgString.parentNode.style.backgroundColor = customStyles.backgroundColor || '#FDF5E6'
+    // svgString.setAttribute('title', unilangText)
 
     window.removeEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
   }
@@ -99,6 +100,8 @@ window.__ehtmlCustomElements__['unison-midi-template'] = (node) => {
   if (!node.hasAttribute('id')) {
     throw new Error('<template is="unison-midi"> must have id attribute')
   }
+  const isHidden = node.hasAttribute('data-hidden')
+  const isAutoPlay = node.hasAttribute('data-autoplay')
   const id = node.getAttribute('id')
   const contentNode = document.importNode(node.content, true)
   const unilangText = contentNode.textContent
@@ -106,10 +109,21 @@ window.__ehtmlCustomElements__['unison-midi-template'] = (node) => {
     const midiForAllPages = event.detail.midiForAllPages
     const soundFont = node.getAttribute('data-sound-font')
     const midiPlayer = window.createMidiPlayer(id, midiForAllPages, soundFont)
+    midiPlayer.setAttribute('id', id)
     node.parentNode.replaceChild(
       midiPlayer, node
     )
     window.removeEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
+    if (isHidden) {
+      midiPlayer.style.display = 'none'
+      midiPlayer.setAttribute('data-hidden', 'true')
+    }
+    if (isAutoPlay) {
+      const playButton = midiPlayer.shadowRoot.querySelector('button')
+      if (!playButton.parentElement.classList.contains('playing')) {
+        playButton.click()
+      }
+    }
   }
   window.addEventListener(`unilangOutputRetrievedFromWorker-${id}`, unilangOutputRetrievedEvent)
   window.unilangOutputViaWorker([ { unilangInputText: unilangText, isRenderedWithLatestUnilangInputText: false } ], false, false, true, id)
@@ -229,7 +243,6 @@ window.__ehtmlCustomElements__['unison-textarea-svg-midi-template'] = (node) => 
     div:has(pre) span:has(img) {
       cursor: text;
     }
-
 
     midi-player {
       display: block;

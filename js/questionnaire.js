@@ -1,11 +1,45 @@
 'use strict'
 
+const dissonants = [
+`
+chord 
+c sharp d e f g a b
+`,
+`
+chord 
+d sharp e f g a b c5
+`,
+`
+chord 
+e sharp f g a b c5 d5
+`,
+`
+chord 
+f sharp g a b c5 d5 e5
+`,
+`
+chord 
+g sharp a b c5 d5 e5 f5
+`,
+`
+chord 
+a sharp b c5 d5 e5 f5 g5
+`,
+`
+chord 
+b sharp c5 d5 e5 f5 g5 a5
+`
+]
+
 window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
   if (node.nodeName.toLowerCase() !== 'template') {
     throw new Error('node is not template')
   }
   const questionnaireContentNode = document.importNode(node.content, true)
   const parentNode = node.parentNode
+
+  const thereIsPlayDissonantOption = node.hasAttribute('data-with-play-dissonant-option')
+
   const questionnaireGroupDiv = document.createElement('div')
   questionnaireGroupDiv.classList.add('group')
   questionnaireGroupDiv.appendChild(questionnaireContentNode)
@@ -28,6 +62,19 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
   const startOverButton = document.createElement('button')
   startOverButton.classList.add('questionnaire-button')
   startOverButton.innerText = 'Start Over'
+
+  let playDissonantCheckbox
+  if (thereIsPlayDissonantOption) {
+    const playDissonantLabel = document.createElement('label')
+    playDissonantLabel.classList.add('block')
+    playDissonantCheckbox = document.createElement('input')
+    playDissonantCheckbox.setAttribute('type', 'checkbox')
+    playDissonantLabel.appendChild(playDissonantCheckbox)
+    const playDissonantTextNode = document.createTextNode('Play Dissonant Between Questions')
+    playDissonantLabel.appendChild(playDissonantTextNode)
+    questionnaireGroupDiv.appendChild(playDissonantLabel)
+    createMidiPlayersWithDissonant(questionnaireGroupDiv)
+  }
 
   questionnaireGroupDiv.appendChild(checkAnswerButton)
   questionnaireGroupDiv.appendChild(nextQuestionButton)
@@ -289,6 +336,12 @@ window.__ehtmlCustomElements__['questionnaire-template'] = (node) => {
   nextQuestionButton.addEventListener('click', () => {
     currentQuestionIndex += 1
     releaseNextQuestion()
+    if (thereIsPlayDissonantOption && playDissonantCheckbox.checked) {
+      const randomMidiPlayerWithDissonant = document.querySelector(
+        `midi-player[id="${Math.floor(Math.random() * dissonants.length)}"]`
+      )
+      playMidiPlayer(randomMidiPlayerWithDissonant)
+    }
     checkAnswerButton.style.display = 'block'
     nextQuestionButton.style.display = 'none'
   })
@@ -325,7 +378,7 @@ function repeatQuestionsIfNeeded (questionTemplates) {
     if (questionTemplates[i].hasAttribute('data-repeat')) {
       const numberOfRepetitions = questionTemplates[i].getAttribute('data-repeat') * 1
       questionTemplates[i].removeAttribute('data-repeat')
-      for (let n = 0; n < numberOfRepetitions; n++) {
+      for (let n = 0; n < numberOfRepetitions - 1; n++) {
         const repeatedQuestion = questionTemplates[i].cloneNode(true)
         questionTemplates.push(repeatedQuestion)
         questionTemplates[i].parentNode.appendChild(repeatedQuestion)
@@ -335,12 +388,35 @@ function repeatQuestionsIfNeeded (questionTemplates) {
   return questionTemplates
 }
 
-function pauseMidiPlayerIfNeeded () {
-  const midiPlayer = document.querySelector('midi-player')
+function pauseMidiPlayerIfNeeded (midiPlayer) {
+  midiPlayer = midiPlayer || document.querySelector('midi-player')
   if (midiPlayer) {
     const playButton = midiPlayer.shadowRoot.querySelector('button')
     if (playButton.parentElement.classList.contains('playing')) {
       playButton.click()
     }
+  }
+}
+
+function playMidiPlayer (midiPlayer) {
+  midiPlayer = midiPlayer || document.querySelector('midi-player')
+  if (midiPlayer) {
+    const playButton = midiPlayer.shadowRoot.querySelector('button')
+    if (!playButton.parentElement.classList.contains('playing')) {
+      playButton.click()
+    }
+  }
+}
+
+function createMidiPlayersWithDissonant (questionnaireGroupDiv) {
+  for (let i = 0; i < dissonants.length; i++) {
+    const midiPlayerTemplate = document.createElement('template')
+    midiPlayerTemplate.setAttribute('is', 'unison-midi')
+    midiPlayerTemplate.setAttribute('id', `dissonant-${i}`)
+    midiPlayerTemplate.setAttribute('data-hidden', 'true')
+    const shuffledDissonants = shuffleArray(dissonants)
+    const unilangText = shuffledDissonants.join('\n')
+    midiPlayerTemplate.innerHTML = unilangText
+    questionnaireGroupDiv.appendChild(midiPlayerTemplate)
   }
 }
